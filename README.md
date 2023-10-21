@@ -11,7 +11,7 @@ Cílem tohoto aplikace je poskytnout uživatelům efektivní a pružný způsob,
 - **Opakující se Úkoly**: Pro pravidelné aktivity nebo úkoly může uživatel nastavit opakování, například denně, týdně nebo měsíčně.
 - **Vizuální Kalendář**: Aplikace obsahuje kalendářní rozhraní, které ukazuje úkoly naplánované na konkrétní dny. To pomáhá uživatelům mít jasný přehled o svém týdnu.
 
-## Koncepční Model Databáze
+## Koncepční Model
 ![Koncepční Model Databáze](/images/diagram.png "Diagram")
 
 ## Popis komplexního dotazu:
