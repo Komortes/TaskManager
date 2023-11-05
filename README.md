@@ -18,9 +18,7 @@ Cílem tohoto aplikace je poskytnout uživatelům efektivní a pružný způsob,
 ![Koncepční Model Databáze](/images/diagram.png "Diagram")
 
 ## Popis komplexního dotazu:
-V této části ukazujeme, jak klient může odeslat komplexní REST dotaz pro získání úkolů, které jsou filtrací specifických tagů a kategorií. Uživatel může odeslat GET požadavek s parametry, které určují požadované tagy a kategorie.
-
-### Endpoint
+ Uživatel může odeslat GET požadavek s parametry, které určují požadované tagy a kategorie.
 
 `GET /api/tasks`
 
