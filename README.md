@@ -5,25 +5,60 @@ Cílem tohoto aplikace je poskytnout uživatelům efektivní a pružný způsob,
 
 ## Business operace (pro klienta)
 
-- **Správa Úkolů**: Uživatel může vytvářet, upravovat a mazat úkoly. Pro každý úkol může být nastaven specifický termín a čas.
-- **Stav Úkolu**: Uživatel může označovat úkoly jako dokončené nebo nedokončené. Tímto způsobem může sledovat svůj pokrok a zůstat organizován.
-- **Třídění a Filtrování**: Úkoly mohou být tříděny podle různých kriterií, například podle data, kategorie nebo tagů. Uživatelé mohou také rychle filtrovat své úkoly, aby našli to, co potřebují.
-- **Opakující se Úkoly**: Pro pravidelné aktivity nebo úkoly může uživatel nastavit opakování, například denně, týdně nebo měsíčně.
-- **Vizuální Kalendář**: Aplikace obsahuje kalendářní rozhraní, které ukazuje úkoly naplánované na konkrétní dny. To pomáhá uživatelům mít jasný přehled o svém týdnu.
+- **Vytváření Úkolů:** Umožňuje uživatelům přidat nové úkoly s detaily, jako jsou název a popis.
+- **Úprava Úkolů:** Uživatelé mohou měnit detaily již existujících úkolů.
+- **Odstranění Úkolů:** Umožňuje uživatelům smazat úkoly, které již nejsou aktuální nebo potřebné.
+- **Změna Stavu Úkolu:** Uživatelé mohou označovat úkoly jako dokončené nebo nedokončené.
+- **Třídění a Filtrování Úkolů:** Nabízí možnost třídit a filtrovat úkoly podle různých atributů, jako jsou datum, kategorie nebo tagy.
+- **Nastavení Opakování Úkolů:** Uživatelé mohou nastavit úkoly k opakování v definovaných intervalech.
+- **Vizuální Kalendář:** Aplikace obsahuje kalendářní rozhraní, které ukazuje úkoly naplánované na konkrétní dny.
+
 
 ## Koncepční Model
 ![Koncepční Model Databáze](/images/diagram.png "Diagram")
 
 ## Popis komplexního dotazu:
-Tato operace umožňuje uživateli přidat nový úkol do svého kalendáře.
+V této části ukazujeme, jak klient může odeslat komplexní REST dotaz pro získání úkolů, které jsou filtrací specifických tagů a kategorií. Uživatel může odeslat GET požadavek s parametry, které určují požadované tagy a kategorie.
 
-### Provozní Kroky:
+### Endpoint
 
-1. Uživatel se přihlásí ke svému účtu a rozhodne se vytvořit nový úkol.
-2. Po zadání všech potřebných informací o úkolu (název, popis, datum, čas, kategorie, štítky apod.) uživatel klikne na tlačítko pro přidání úkolu.
-3. Na straně serveru proběhne kontrola:
-   - Server zkontroluje kolize v zadaném datu a čase:
-     - Pokud v zadaném datu a čase neexistuje žádný úkol, server přidá úkol do databáze.
-     - Pokud v zadaném datu a čase již existuje jeden úkol, server přidá druhý úkol do databáze, ale informuje uživatele o možné kolizi.
-     - Pokud v zadaném datu a čase již existují dva úkoly, server informuje uživatele o kolizi a nepřidá nový úkol.
+`GET /api/tasks`
 
+### Parametry Dotazu
+
+Uživatel může specifikovat následující parametry ve svém dotazu:
+
+- `tags` - seznam ID tagů, které mají být aplikovány na úkoly.
+- `categories` - seznam ID kategorií, do kterých úkoly spadají.
+- `dateFrom` - počáteční datum a čas, od kdy mají být úkoly zahrnuty.
+- `dateTo` - koncové datum a čas, do kdy mají být úkoly zahrnuty.
+
+`GET /api/tasks?tags=1,2,3&categories=5,6&dateFrom=2023-01-01T00:00:00Z&dateTo=2023-01-31T23:59:59`
+
+Tento dotaz by vrátil všechny úkoly, které odpovídají alespoň jednomu z uvedených tagů a zároveň jsou kategorizovány alespoň jednou z uvedených kategorií v zadaném časovém rozmezí.
+
+### Zpracování na Serveru
+
+Server při obdržení tohoto požadavku provede následující kroky:
+
+1. Parsuje parametry z URL dotazu.
+2. Sestaví SQL dotaz, který spojí tabulky úkolů, tagů a kategorií.
+3. Aplikuje filtr na základě specifikovaných ID tagů a kategorií, a také kontroluje časové rozmezí.
+4. Vrátí odpověď v JSON formátu, která obsahuje seznam úkolů odpovídajících kritériím.
+
+### Příklad Odpovědi JSON
+
+```json
+{
+  "tasks": [
+    {
+      "id": 12,
+      "name": "Nakoupit potraviny",
+      "description": "Mléko, chléb, máslo",
+      "tags": [{"id": 1, "name": "Nákupy"}],
+      "category": {"id": 5, "name": "Domácnost"},
+      "dueDate": "2023-01-15T10:00:00Z"
+    },
+    // další úkoly ...
+  ]
+}
