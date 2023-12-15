@@ -3,16 +3,23 @@
 
 Cílem tohoto aplikace je poskytnout uživatelům efektivní a pružný způsob, jak spravovat své denní úkoly a plány. Aplikace je zaměřena na zvýšení produktivity a pomáhá uživatelům dosáhnout svých cílů systematickým způsobem. Kromě základních funkcí správy úkolů také poskytuje vizuální kalendářní rozhraní pro lepší přehled.
 
-## Business operace (pro klienta)
+## Operace
 
-- **Vytváření Úkolů:** Umožňuje uživatelům přidat nové úkoly s detaily, jako jsou název a popis.
-- **Úprava Úkolů:** Uživatelé mohou měnit detaily již existujících úkolů.
-- **Odstranění Úkolů:** Umožňuje uživatelům smazat úkoly, které již nejsou aktuální nebo potřebné.
-- **Změna Stavu Úkolu:** Uživatelé mohou označovat úkoly jako dokončené nebo nedokončené.
-- **Třídění a Filtrování Úkolů:** Nabízí možnost třídit a filtrovat úkoly podle různých atributů, jako jsou datum, kategorie nebo tagy.
-- **Nastavení Opakování Úkolů:** Uživatelé mohou nastavit úkoly k opakování v definovaných intervalech.
-- **Vizuální Kalendář:** Aplikace obsahuje kalendářní rozhraní, které ukazuje úkoly naplánované na konkrétní dny.
+### Úprava Existujícího Úkolu
+Operace umožňuje uživatelům upravit detaily existujícího úkolu. Uživatelé mohou změnit název, popis, tagy, kategorie, a datum dokončení úkolu.
 
+### Klient - Interakce s Uživatelem
+1. Uživatel vybere úkol k úpravě v aplikaci.
+2. Aplikace zobrazí formulář s aktuálními detaily úkolu (načtené ze serveru).
+3. Uživatel provede požadované změny (např. změní název, popis, přidá/odebere tagy).
+
+### Komunikace se Serverem
+1. **Načtení Detailů Úkolu:** Klient odešle `GET` požadavek pro získání aktuálních detailů úkolu.
+2. **Uživatel Upraví Úkol:** Klient umožňuje uživateli modifikovat detaily úkolu.
+3. **Odeslání Změn na Server:** Po potvrzení změn uživatelem klient odešle `PUT` požadavek s upravenými detaily úkolu.
+
+### Zpracování na Serveru
+Server přijme požadavek na úpravu, ověří oprávnění uživatele k úpravě daného úkolu a aplikuje změny v databázi.
 
 ## Koncepční Model
 ![Koncepční Model Databáze](/images/diagram.png "Diagram")
