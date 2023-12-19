@@ -12,7 +12,7 @@ Při vytváření nebo opravě úkolu může uživatel k uspořádání úkolů 
 1. Uživateli se zobrazí seznam všech aktuálních kategorií.
 2. Při vytváření nové kategorie se zadává její název, symbol a barva.
 3. Uživatel musí zkontrolovat, zda název nové kategorie není stejný jako název již existujících systémových kategorií.
-4. Je-li nová kategorie unikátní a nekoliduje se systémovými kategoriemi, pošle na API požadavek na vytvoření této kategorie .
+4. Je-li nová kategorie unikátní a nekoliduje se systémovými kategoriemi, pošle na API požadavek na vytvoření této kategorie.
 
 ## Koncepční Model
 ![Koncepční Model Databáze](/images/diagram.png "Diagram")
