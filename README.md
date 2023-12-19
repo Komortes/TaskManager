@@ -5,21 +5,14 @@ Cílem tohoto aplikace je poskytnout uživatelům efektivní a pružný způsob,
 
 ## Operace
 
-### Úprava Existujícího Úkolu
-Operace umožňuje uživatelům upravit detaily existujícího úkolu. Uživatelé mohou změnit název, popis, tagy, kategorie, a datum dokončení úkolu.
+### Vytvoření uživatelské kategorie
+Při vytváření nebo opravě úkolu může uživatel k uspořádání úkolů použít také kategorie. Je možné použít standardní kategorie nebo vytvořit vlastní kategorie.
 
-### Klient - Interakce s Uživatelem
-1. Uživatel vybere úkol k úpravě v aplikaci.
-2. Aplikace zobrazí formulář s aktuálními detaily úkolu (načtené ze serveru).
-3. Uživatel provede požadované změny (např. změní název, popis, přidá/odebere tagy).
-
-### Komunikace se Serverem
-1. **Načtení Detailů Úkolu:** Klient odešle `GET` požadavek pro získání aktuálních detailů úkolu.
-2. **Uživatel Upraví Úkol:** Klient umožňuje uživateli modifikovat detaily úkolu.
-3. **Odeslání Změn na Server:** Po potvrzení změn uživatelem klient odešle `PUT` požadavek s upravenými detaily úkolu.
-
-### Zpracování na Serveru
-Server přijme požadavek na úpravu, ověří oprávnění uživatele k úpravě daného úkolu a aplikuje změny v databázi.
+### Pořadí  
+1. Uživateli se zobrazí seznam všech aktuálních kategorií.
+2. Při vytváření nové kategorie se zadává její název, symbol a barva.
+3. Uživatel musí zkontrolovat, zda název nové kategorie není stejný jako název již existujících systémových kategorií.
+4. Je-li nová kategorie unikátní a nekoliduje se systémovými kategoriemi, pošle na API požadavek na vytvoření této kategorie .
 
 ## Koncepční Model
 ![Koncepční Model Databáze](/images/diagram.png "Diagram")
