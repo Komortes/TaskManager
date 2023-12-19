@@ -8,7 +8,7 @@ Cílem tohoto aplikace je poskytnout uživatelům efektivní a pružný způsob,
 ### Vytvoření uživatelské kategorie
 Při vytváření nebo opravě úkolu může uživatel k uspořádání úkolů použít také kategorie. Je možné použít standardní kategorie nebo vytvořit vlastní kategorie.
 
-### Pořadí  
+### Postup  
 1. Uživateli se zobrazí seznam všech aktuálních kategorií.
 2. Při vytváření nové kategorie se zadává její název, symbol a barva.
 3. Uživatel musí zkontrolovat, zda název nové kategorie není stejný jako název již existujících systémových kategorií.
