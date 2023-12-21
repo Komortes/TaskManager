@@ -22,7 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserPrincipal loadUserByUsername(String username) throws UsernameNotFoundException {
-        // The findByEmail method should return an Optional<User> to handle null cases
         Optional<User> optionalUser = userRepository.findByEmail(username);
         User user = optionalUser.orElseThrow(() -> 
             new UsernameNotFoundException("User not found with username or email: " + username)
