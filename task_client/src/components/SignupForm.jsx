@@ -12,6 +12,7 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
+import axios from "axios"; 
 
 /////////////////////////////////////////////////////////////
 let easing = [0.6, -0.05, 0.01, 0.99];
@@ -27,7 +28,6 @@ const animate = {
 
 const SignupForm = ({ setAuth }) => {
   const navigate = useNavigate();
-
   const [showPassword, setShowPassword] = useState(false);
 
   const SignupSchema = Yup.object().shape({
@@ -53,11 +53,21 @@ const SignupForm = ({ setAuth }) => {
       password: "",
     },
     validationSchema: SignupSchema,
-    onSubmit: () => {
-      setTimeout(() => {
-        setAuth(true);
-        navigate("/", { replace: true });
-      }, 2000);
+    onSubmit: (values, { setSubmitting, setErrors }) => {
+      axios
+        .post("http://localhost:8080/api/auth/signup", values)
+        .then((response) => {
+          console.log("User registered:", response.data);
+          setAuth(true); 
+          navigate("/", { replace: true }); 
+        })
+        .catch((error) => {
+          console.error("Registration error:", error);
+          setErrors({ submit: error.message });
+        })
+        .finally(() => {
+          setSubmitting(false); 
+        });
     },
   });
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { Form, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
-
+import axios from "axios";
 import {
   Box,
   IconButton,
@@ -29,7 +29,6 @@ const LoginForm = ({ setAuth }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
@@ -51,29 +50,17 @@ const LoginForm = ({ setAuth }) => {
   });
 
   const login = (values, setSubmitting, setErrors) => {
-    fetch('http://localhost:8080/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
-    })
+    axios.post('http://localhost:8080/api/auth/login', values)
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
         setAuth(true);
-        navigate(from, { replace: true });
+        navigate(from, { replace: true }); 
       })
       .catch(error => {
-        console.error('Error:', error);
+        console.error('Login error:', error);
         setErrors({ submit: error.message });
       })
       .finally(() => {
-        setSubmitting(false);
+        setSubmitting(false); 
       });
   };
 

@@ -1,4 +1,4 @@
-CREATE TABLE "User" (
+CREATE TABLE "Users" (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -9,7 +9,7 @@ CREATE TABLE "Calendar" (
     calendar_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     user_id INTEGER NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES "User" (user_id)
+    FOREIGN KEY (user_id) REFERENCES "Users" (user_id)
 );
 
 CREATE TABLE "Category" (
@@ -18,14 +18,14 @@ CREATE TABLE "Category" (
     color VARCHAR(50),
     symbol VARCHAR(255),
     user_id INTEGER,
-    FOREIGN KEY (user_id) REFERENCES "User" (user_id)
+    FOREIGN KEY (user_id) REFERENCES "Users" (user_id)
 );
 
 CREATE TABLE "Tag" (
     tag_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     user_id INTEGER,
-    FOREIGN KEY (user_id) REFERENCES "User" (user_id)
+    FOREIGN KEY (user_id) REFERENCES "Users" (user_id)
 );
 
 CREATE TABLE "Task" (
