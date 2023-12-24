@@ -14,7 +14,6 @@ import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import axios from "axios"; 
 
-/////////////////////////////////////////////////////////////
 let easing = [0.6, -0.05, 0.01, 0.99];
 const animate = {
   opacity: 1,

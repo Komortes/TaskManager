@@ -35,12 +35,13 @@ public class AuthService {
         return userRepository.existsByEmail(email);
     }
 
-    public void registerUser(String username, String email, String password) {
+    public void registerUser(String firstName, String lastName, String email, String password) {
+        String username = firstName + " " + lastName;
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setEmail(email);
-        newUser.setPassword(passwordEncoder.encode(password)); 
-        userRepository.save(newUser); 
+        newUser.setPassword(passwordEncoder.encode(password));
+        userRepository.save(newUser);
     }
 
 }
