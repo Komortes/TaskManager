@@ -51,7 +51,7 @@ const LoginForm = ({ setAuth }) => {
   });
 
   const login = (values, setSubmitting, setErrors) => {
-    fetch('http://localhost:8080/api/login', {
+    fetch('http://localhost:8080/api/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

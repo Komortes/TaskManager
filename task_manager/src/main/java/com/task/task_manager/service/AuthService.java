@@ -16,7 +16,8 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthService(AuthenticationManager authenticationManager, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(AuthenticationManager authenticationManager, UserRepository userRepository,
+            PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -35,10 +36,11 @@ public class AuthService {
     }
 
     public void registerUser(String username, String email, String password) {
-        User user = new User();
-        user.setUsername(username);
-        user.setEmail(email);
-        user.setPassword(passwordEncoder.encode(password));
-        userRepository.save(user);
+        User newUser = new User();
+        newUser.setUsername(username);
+        newUser.setEmail(email);
+        newUser.setPassword(passwordEncoder.encode(password)); 
+        userRepository.save(newUser); 
     }
+
 }
