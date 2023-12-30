@@ -61,9 +61,14 @@ const SignupForm = ({ setAuth }) => {
           navigate("/", { replace: true }); 
         })
         .catch((error) => {
-          console.error("Registration error:", error);
-          setErrors({ submit: error.message });
-        })
+          if (error.response && error.response.data) {
+              const serverMessage = error.response.data.message;
+              setErrors({ email: serverMessage });
+          } else {
+              setErrors({ email: "An unexpected error occurred." });
+          }
+      })
+      
         .finally(() => {
           setSubmitting(false); 
         });

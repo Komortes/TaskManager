@@ -30,8 +30,6 @@ const animate = {
 
 const LoginForm = ({ setAuth }) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
   const [showPassword, setShowPassword] = useState(false);
 
   const LoginSchema = Yup.object().shape({
@@ -53,22 +51,30 @@ const LoginForm = ({ setAuth }) => {
   });
 
   const login = (values, setSubmitting, setErrors) => {
-    axios.post('http://localhost:8080/api/auth/login', values)
+    axios.post('http://localhost:8080/api/auth/login', values, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
       .then(response => {
         setAuth(true);
-        navigate(from, { replace: true }); 
+        navigate("/");
       })
       .catch(error => {
         console.error('Login error:', error);
-        setErrors({ submit: error.message });
+        if (error.response && error.response.data) {
+          setErrors({ password: error.response.data.message });
+        } else {
+          setErrors({ password: "An unknown error occurred" });
+        }
       })
       .finally(() => {
-        setSubmitting(false); 
+        setSubmitting(false);
       });
   };
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } =
-    formik;
+  const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
 
   return (
     <FormikProvider value={formik}>
@@ -108,7 +114,7 @@ const LoginForm = ({ setAuth }) => {
               label="Password"
               {...getFieldProps("password")}
               error={Boolean(touched.password && errors.password)}
-              helperText={touched.password && errors.password}
+              helperText={(touched.password && errors.password)|| errors.password}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -148,6 +154,7 @@ const LoginForm = ({ setAuth }) => {
               variant="contained"
               loading={isSubmitting}
             >
+
               {isSubmitting ? "loading..." : "Login"}
             </LoadingButton>
           </Box>
