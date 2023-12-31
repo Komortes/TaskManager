@@ -6,7 +6,6 @@ import SignupForm from "../components/SignupForm";
 import Logo from "../components/Logo";
 import { motion } from "framer-motion";
 
-//////////////////////////////////
 const RootStyle = styled("div")({
   background: "rgb(249, 250, 251)",
   height: "100vh",
