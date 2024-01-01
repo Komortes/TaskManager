@@ -8,15 +8,14 @@ const CalendarList = ({ calendars, gradients }) => {
 
   const handleCardClick = (title) => {
     console.log("Card clicked:", title);
-    // Implement navigation or other actions when a calendar card is clicked
   };
 
   const handleAddNewClick = () => {
-    setIsModalOpen(true); // Open the modal when the add new card is clicked
+    setIsModalOpen(true); 
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); // Close the modal
+    setIsModalOpen(false); 
   };
 
   return (

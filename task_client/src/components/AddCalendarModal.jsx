@@ -33,7 +33,9 @@ const AddCalendarModal = ({ onClose, existingTitles }) => {
 
     try {
       const token = localStorage.getItem('accessToken');
-      await axios.post('http://localhost:8080/api/calendars', { title }, {
+      const name = title;
+      console.log("Token being sent:", token);
+      await axios.post('http://localhost:8080/api/calendars', { name }, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -73,7 +75,7 @@ const AddCalendarModal = ({ onClose, existingTitles }) => {
             type="text"
             value={title}
             onChange={handleInputChange}
-            onFocus={() => setError('')} // Hide error when user focuses on input
+            onFocus={() => setError('')} 
             placeholder="Enter calendar title"
           />
           {error && <p className="error-message">{error}</p>}

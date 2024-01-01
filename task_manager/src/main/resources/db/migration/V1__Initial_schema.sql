@@ -1,34 +1,34 @@
-CREATE TABLE "Users" (
+CREATE TABLE "users" (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE "Calendar" (
+CREATE TABLE "calendar" (
     calendar_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     user_id INTEGER NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES "Users" (user_id)
+    FOREIGN KEY (user_id) REFERENCES "users" (user_id)
 );
 
-CREATE TABLE "Category" (
+CREATE TABLE "category" (
     category_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     color VARCHAR(50),
     symbol VARCHAR(255),
     user_id INTEGER,
-    FOREIGN KEY (user_id) REFERENCES "Users" (user_id)
+    FOREIGN KEY (user_id) REFERENCES "users" (user_id)
 );
 
-CREATE TABLE "Tag" (
+CREATE TABLE "tag" (
     tag_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     user_id INTEGER,
-    FOREIGN KEY (user_id) REFERENCES "Users" (user_id)
+    FOREIGN KEY (user_id) REFERENCES "users" (user_id)
 );
 
-CREATE TABLE "Task" (
+CREATE TABLE "task" (
     task_id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
@@ -39,18 +39,18 @@ CREATE TABLE "Task" (
     repeat BOOLEAN,
     calendar_id INTEGER,
     category_id INTEGER,
-    FOREIGN KEY (calendar_id) REFERENCES "Calendar" (calendar_id),
-    FOREIGN KEY (category_id) REFERENCES "Category" (category_id)
+    FOREIGN KEY (calendar_id) REFERENCES "calendar" (calendar_id),
+    FOREIGN KEY (category_id) REFERENCES "category" (category_id)
 );
 
-CREATE TABLE "Task_Tag" (
+CREATE TABLE "task_tag" (
     task_id INTEGER NOT NULL,
     tag_id INTEGER NOT NULL,
     PRIMARY KEY (task_id, tag_id),
-    FOREIGN KEY (task_id) REFERENCES "Task" (task_id) ON DELETE CASCADE,
-    FOREIGN KEY (tag_id) REFERENCES "Tag" (tag_id) ON DELETE CASCADE
+    FOREIGN KEY (task_id) REFERENCES "task" (task_id) ON DELETE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES "tag" (tag_id) ON DELETE CASCADE
 );
 
-CREATE UNIQUE INDEX idx_category_name_user ON "Category" (name, user_id);
+CREATE UNIQUE INDEX idx_category_name_user ON "category" (name, user_id);
 
-CREATE UNIQUE INDEX idx_tag_name_user ON "Tag" (name, user_id);
+CREATE UNIQUE INDEX idx_tag_name_user ON "tag" (name, user_id);

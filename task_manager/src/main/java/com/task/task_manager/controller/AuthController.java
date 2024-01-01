@@ -12,10 +12,8 @@ import com.task.task_manager.security.JwtAuthenticationResponse;
 import com.task.task_manager.security.JwtTokenProvider;
 import com.task.task_manager.service.AuthService;
 
-import io.swagger.v3.oas.models.responses.ApiResponse;
 import org.springframework.security.core.AuthenticationException;
 import com.task.task_manager.dto.ErrorResponse; 
-import com.task.task_manager.dto.MessageResponse; 
 import java.util.Collections; 
 
 @RestController
