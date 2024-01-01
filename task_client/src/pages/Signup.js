@@ -1,6 +1,6 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import { Container, Typography, Link, Box, Divider } from "@mui/material";
+import { Container, Typography, Link, Box } from "@mui/material";
 import styled from "@emotion/styled";
 import SignupForm from "../components/SignupForm";
 import Logo from "../components/Logo";

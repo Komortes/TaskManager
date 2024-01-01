@@ -2,17 +2,11 @@ import * as Yup from "yup";
 import { useState } from "react";
 import { useFormik, Form, FormikProvider } from "formik";
 import { useNavigate } from "react-router-dom";
-import {
-  Stack,
-  Box,
-  TextField,
-  IconButton,
-  InputAdornment,
-} from "@mui/material";
+import { Stack, Box, TextField, IconButton, InputAdornment } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
-import axios from "axios"; 
+import axios from "axios";
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 const animate = {
@@ -57,20 +51,20 @@ const SignupForm = ({ setAuth }) => {
         .post("http://localhost:8080/api/auth/signup", values)
         .then((response) => {
           console.log("User registered:", response.data);
-          setAuth(true); 
-          navigate("/", { replace: true }); 
+          setAuth(true);
+          navigate("/", { replace: true });
         })
         .catch((error) => {
           if (error.response && error.response.data) {
-              const serverMessage = error.response.data.message;
-              setErrors({ email: serverMessage });
+            const serverMessage = error.response.data.message;
+            setErrors({ email: serverMessage });
           } else {
-              setErrors({ email: "An unexpected error occurred." });
+            setErrors({ email: "An unexpected error occurred." });
           }
-      })
-      
+        })
+
         .finally(() => {
-          setSubmitting(false); 
+          setSubmitting(false);
         });
     },
   });

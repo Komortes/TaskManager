@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Исправленный импорт
 import { Form, FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -13,7 +13,6 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
-import CryptoJS from 'crypto-js';
 
 
 let easing = [0.6, -0.05, 0.01, 0.99];
@@ -58,8 +57,10 @@ const LoginForm = ({ setAuth }) => {
       }
     })
       .then(response => {
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('tokenType', response.data.tokenType);
         setAuth(true);
-        navigate("/");
+        navigate("/main");
       })
       .catch(error => {
         console.error('Login error:', error);

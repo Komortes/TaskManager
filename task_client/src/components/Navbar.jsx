@@ -25,6 +25,8 @@ export default function Navbar({ setAuth }) {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('tokenType'); 
     setAuth(false);
     navigate('/login');
     handleClose();

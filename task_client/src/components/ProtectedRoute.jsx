@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
@@ -7,7 +6,7 @@ const ProtectedRoute = ({ auth, children }) => {
     return <Navigate to="/login" replace />;
   }
 
-  return children; 
+  return children;
 };
 
 export default ProtectedRoute;
