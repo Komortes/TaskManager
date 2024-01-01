@@ -50,9 +50,10 @@ const SignupForm = ({ setAuth }) => {
       axios
         .post("http://localhost:8080/api/auth/signup", values)
         .then((response) => {
-          console.log("User registered:", response.data);
+          localStorage.setItem('accessToken', response.data.accessToken);
+          localStorage.setItem('tokenType', response.data.tokenType);
           setAuth(true);
-          navigate("/", { replace: true });
+          navigate("/main");
         })
         .catch((error) => {
           if (error.response && error.response.data) {

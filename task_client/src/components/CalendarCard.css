@@ -1,5 +1,4 @@
 .card {
-  margin: 2em;
   width: 240px;
   height: 140px;
   position: relative;
@@ -7,13 +6,13 @@
   overflow: hidden;
   cursor: pointer;
   animation: name-of-animation 2s;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 .card-img {
   position: absolute;
   height: 100%;
   width: 100%;
-  background: linear-gradient(144deg,#af40ff,#5b42f3 50%,#00ddeb);
 }
 
 .card-info {
@@ -46,7 +45,6 @@
   margin-left: -5px;
 }
 
-
 .text-title {
   font-weight: 700;
   font-size: 2.1rem;
@@ -63,7 +61,6 @@
   0% {
     opacity: 0;
   }
-
   100% {
     opacity: 1;
   }
