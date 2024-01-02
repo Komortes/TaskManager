@@ -2,13 +2,21 @@ import React from 'react';
 import './CalendarCard.css'; 
 
 
-const CalendarCard = ({ title, gradient, onCardClick }) => {
+const CalendarCard = ({ id, title, gradient, onCardClick, onRightClick }) => {
   const cardStyle = {
     backgroundImage: gradient,
   };
-
+  
   return (
-    <div className="card" onClick={() => onCardClick(title)}  style={cardStyle}>
+    <div 
+      className="card" 
+      onClick={() => onCardClick(title)}  
+      onContextMenu={(e) => {
+        e.preventDefault(); 
+        onRightClick(e, id); 
+      }} 
+      style={cardStyle}
+    >
       <div className="card-img"></div>
       <div className="card-info">
         <div className="card-text">

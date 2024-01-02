@@ -8,8 +8,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [auth, setAuth] = useState(!!localStorage.getItem('accessToken'));
- 
-  
+
+
   return (
     <BrowserRouter>
       <CssBaseline />
@@ -24,11 +24,7 @@ function App() {
         <Route
           path="/"
           element={
-            auth ? (
-              <Home setAuth={setAuth} />
-            ) : (
-              <Navigate to="/login" replace />
-            )
+            auth ? <Navigate to="/main" replace /> : <Navigate to="/login" replace />
           }
         />
       </Routes>
