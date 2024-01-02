@@ -1,19 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Navbar from "../components/Navbar";
-import CalendarList from '../components/CalendarList'; 
+import CalendarList from '../components/CalendarList';
+import '../components/Loader.css';
 
 const Home = ({ setAuth }) => {
-  const calendars = [
-    { id: 1, title: "Work" },
-    { id: 2, title: "Personal" },
-    { id: 3, title: "Gym" },
-    { id: 4, title: "Health" },
-    { id: 5, title: "Projects" },
-    { id: 6, title: "Travel" },
-    { id: 7, title: "Family" },
-    { id: 8, title: "Learning" },
-  
-  ];
+
+  const [calendars, setCalendars] = useState([]);
+  const [loading, setLoading] = useState(true);
+
 
   const gradients = [
     'linear-gradient(144deg, #af40ff, #5b42f3, #00ddeb)',
@@ -32,11 +27,44 @@ const Home = ({ setAuth }) => {
     'linear-gradient(144deg, #f093fb, #f5576c, #43e97b)',
     'linear-gradient(144deg, #4facfe, #00f2fe, #43e97b)'
   ];
+
+  useEffect(() => {
+    const fetchCalendars = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        const response = await axios.get('http://localhost:8080/api/calendars', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setCalendars(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching calendars:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchCalendars();
+  }, []);
+
   return (
     <div className="home-page">
       <Navbar setAuth={setAuth} />
       <div className="content">
-        <CalendarList calendars={calendars} gradients={gradients}/>
+        {loading ? (
+          <div className="loading-container">
+            <div className="loading">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        ) : (
+          <CalendarList calendars={calendars} gradients={gradients} />
+        )}
       </div>
     </div>
   );
