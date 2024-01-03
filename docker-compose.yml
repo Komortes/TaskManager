@@ -37,5 +37,13 @@ services:
     depends_on:
       - task-manager
 
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: skoroule@example.com 
+      PGADMIN_DEFAULT_PASSWORD: k6567syY
+    ports:
+      - "8081:80" 
+
 volumes:
   pgdata:

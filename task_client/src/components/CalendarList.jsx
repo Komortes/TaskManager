@@ -13,8 +13,8 @@ const CalendarList = ({ calendars, gradients }) => {
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [selectedCalendarId, setSelectedCalendarId] = useState(null);
 
-  const handleCardClick = (title) => {
-    console.log("Card clicked:", title);
+  const handleCardClick = (name) => {
+    console.log("Card clicked:", name);
   };
 
   const handleAddNewClick = () => {
@@ -25,14 +25,14 @@ const CalendarList = ({ calendars, gradients }) => {
     setIsModalOpen(false);
   };
 
-  const handleShowDeleteModal = (id) => {
-    setSelectedCalendarId(id);
+  const handleShowDeleteModal = (calendarId) => {
+    setSelectedCalendarId(calendarId);
     setShowDeleteModal(true);
     closeContextMenu();
   };
 
-  const handleShowRenameModal = (id) => {
-    setSelectedCalendarId(id);
+  const handleShowRenameModal = (calendarId) => {
+    setSelectedCalendarId(calendarId);
     setShowRenameModal(true);
     closeContextMenu();
   };
@@ -63,9 +63,9 @@ const CalendarList = ({ calendars, gradients }) => {
     <div className="calendar-list" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', gap: '20px', padding: '20px' }}>
       {calendars.map((calendar, index) => (
         <CalendarCard
-          key={calendar.id}
-          id={calendar.id}
-          title={calendar.title}
+          key={calendar.calendarId}
+          id={calendar.calendarId}
+          title={calendar.name}
           gradient={gradients[index % gradients.length]}
           onCardClick={handleCardClick}
           onRightClick={handleRightClick}
@@ -75,7 +75,7 @@ const CalendarList = ({ calendars, gradients }) => {
       {isModalOpen && (
         <AddCalendarModal
           onClose={handleCloseModal}
-          existingTitles={calendars.map(calendar => calendar.title)}
+          existingTitles={calendars.map(calendar => calendar.name)}
         />
       )}
       {contextMenu && (
@@ -97,8 +97,8 @@ const CalendarList = ({ calendars, gradients }) => {
       {showRenameModal && (
         <RenameModal
           onClose={handleCloseRenameModal}
-          currentName={calendars.find(calendar => calendar.id === selectedCalendarId).title}
-          existingTitles={calendars.map(calendar => calendar.title)}
+          currentName={calendars.find(calendar => calendar.calendarId === selectedCalendarId).name}
+          existingTitles={calendars.map(calendar => calendar.name)}
           CardtoDRename={selectedCalendarId}
         />
       )}

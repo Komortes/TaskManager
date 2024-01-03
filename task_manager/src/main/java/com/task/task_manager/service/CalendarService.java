@@ -6,7 +6,10 @@ import com.task.task_manager.model.Calendar;
 import com.task.task_manager.model.User;
 import com.task.task_manager.repository.CalendarRepository;
 import com.task.task_manager.repository.UserRepository;
+import com.task.task_manager.dto.CalendarDto;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class CalendarService {
 
@@ -31,12 +34,14 @@ public class CalendarService {
             return false;
         }
     }
-    
-    public List<Calendar> getAllCalendarsForUser(Long userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        return calendarRepository.findAllByUser(user);
-    }
 
+    public List<CalendarDto> getAllCalendarsForUser(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        List<Calendar> calendars = calendarRepository.findAllByUser(user);
+        return calendars.stream()
+                .map(CalendarDto::new)
+                .collect(Collectors.toList());
+    }
 
     public Calendar updateCalendar(Long calendarId, String newName, Long userId) {
         Calendar calendar = calendarRepository.findById(calendarId).orElse(null);
@@ -47,6 +52,5 @@ public class CalendarService {
             return null;
         }
     }
-    
 
 }

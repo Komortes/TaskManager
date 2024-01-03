@@ -40,12 +40,13 @@ public class CalendarController {
         if (authentication != null) {
             UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
             Long userId = userPrincipal.getId();
-            List<Calendar> calendars = calendarService.getAllCalendarsForUser(userId);
-            return ResponseEntity.ok(calendars);
+            List<CalendarDto> calendarDtos = calendarService.getAllCalendarsForUser(userId); 
+            return ResponseEntity.ok(calendarDtos);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
         }
     }
+    
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCalendar(@PathVariable Long id, Authentication authentication) {
