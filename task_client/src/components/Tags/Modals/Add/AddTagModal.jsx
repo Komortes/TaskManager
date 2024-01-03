@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './AddCalendarModal.css';
+import './AddTagModal.css';
 import axios from 'axios';
 
-const AddCalendarModal = ({ onClose, existingTitles, fetchCalendars }) => {
+const AddTagModal = ({ onClose, existingTitles, fetchCalendars }) => {
   const [title, setTitle] = useState('');
   const [closing, setClosing] = useState(false);
   const [error, setError] = useState('');
@@ -35,7 +35,7 @@ const AddCalendarModal = ({ onClose, existingTitles, fetchCalendars }) => {
       const token = localStorage.getItem('accessToken');
       const name = title;
       console.log("Token being sent:", token);
-      await axios.post('http://localhost:8080/api/calendars', { name }, {
+      await axios.post('http://localhost:8080/api/tags', { name }, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -68,7 +68,7 @@ const AddCalendarModal = ({ onClose, existingTitles, fetchCalendars }) => {
     <div className={`modal-backdrop ${closing ? 'closing' : ''}`}>
       <div className="modal-content">
         <div className="modal-header">
-          <h2>Add New Calendar</h2>
+          <h2>Add New Tag</h2>
         </div>
         <div className="modal-body">
           <input
@@ -77,7 +77,7 @@ const AddCalendarModal = ({ onClose, existingTitles, fetchCalendars }) => {
             value={title}
             onChange={handleInputChange}
             onFocus={() => setError('')} 
-            placeholder="Enter calendar title"
+            placeholder="Enter tag title"
           />
           {error && <p className="error-message">{error}</p>}
         </div>

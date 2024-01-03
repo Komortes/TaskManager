@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Tags from "./pages/Tags.js";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -27,6 +28,11 @@ function App() {
             auth ? <Navigate to="/main" replace /> : <Navigate to="/login" replace />
           }
         />
+        <Route path="/tags" element={
+          <ProtectedRoute auth={auth}>
+            <Tags setAuth={setAuth} />
+          </ProtectedRoute>
+        } />
       </Routes>
     </BrowserRouter>
   );

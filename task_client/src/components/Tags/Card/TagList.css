@@ -1,0 +1,22 @@
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+    padding: 20px;
+  }
+  
+  .add-new-calendar {
+    width: 354px; 
+    height: 240px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #ccc; 
+    border-radius: 16px;
+    cursor: pointer;
+  }
+  
+  .add-new-calendar:hover {
+    background-color: #f9f9f9; 
+  }
+  

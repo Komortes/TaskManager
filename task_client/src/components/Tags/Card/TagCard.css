@@ -1,0 +1,74 @@
+.card {
+  width: 200px; 
+  height: 40px; 
+  position: relative;
+  border-radius: 15px; 
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  padding: 0 15px; 
+  background-color: #5B9BD5; 
+  color: white;
+  transition: transform .3s ease-in-out; 
+  margin: 0.5em; 
+}
+
+.card-info {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 1.7rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0em 1em 1.5em 1em;
+  
+}
+
+.card-icon {
+  opacity: 0;
+  transform: translateX(-20%);
+  width: 2em;
+  height: 2em;
+  transition: all .3s ease-in-out;
+  position: relative;
+  top: 15px;
+}
+
+.icon {
+  --size: 28px;
+  width: var(--size);
+  height: var(--size);
+  filter: invert(1);
+  margin-top: 1px;
+  margin-left: -5px;
+}
+
+.card-text {
+ margin: 0;
+}
+
+.card:hover {
+  transform: scale(1.05); /* Небольшое увеличение при наведении */
+}
+
+.text-title {
+  font-weight: 600;
+  font-size: 1rem; /* Уменьшим размер шрифта */
+  overflow: hidden;     
+  text-overflow: ellipsis; 
+  flex-grow: 1; /* Текст займет все доступное пространство */
+  padding: 0; /* Убрать внутренние отступы */
+  margin: 0; /* Убрать внешние отступы */
+}
+
+@keyframes name-of-animation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
