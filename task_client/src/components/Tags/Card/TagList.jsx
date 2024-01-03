@@ -5,6 +5,7 @@ import AddTagCard from './AddTagCard';
 import ContextMenu from '../ContextMenu';
 //import ConfirmDeleteModal from '../Modals/Delete/ConfirmDeleteModal';
 //import RenameModal from '../Modals/Rename/RenameModal';
+import styles from './TagList.module.css';
 
 const TagList = ({ calendars, gradients,  fetchCalendars }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -60,7 +61,7 @@ const TagList = ({ calendars, gradients,  fetchCalendars }) => {
   };
 
   return (
-    <div className="tag-list" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', gap: '20px', padding: '20px' }}>
+    <div className={styles.tag_list} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', gap: '20px', padding: '20px' }}>
       {calendars.map((calendar, index) => (
         <TagCard
           key={calendar.calendarId}

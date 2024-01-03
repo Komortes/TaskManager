@@ -1,11 +1,11 @@
-.calendar-list {
+.tag_list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px; 
     padding: 20px;
   }
   
-  .add-new-calendar {
+  .add_new_calendar {
     width: 354px; 
     height: 240px; 
     display: flex;
@@ -16,7 +16,7 @@
     cursor: pointer;
   }
   
-  .add-new-calendar:hover {
+  .add_new_calendar:hover {
     background-color: #f9f9f9; 
   }
   

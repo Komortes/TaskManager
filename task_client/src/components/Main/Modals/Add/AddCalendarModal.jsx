@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './AddCalendarModal.css';
+import styles from './AddCalendarModal.module.css';
 import axios from 'axios';
 
 const AddCalendarModal = ({ onClose, existingTitles, fetchCalendars }) => {
@@ -65,25 +65,25 @@ const AddCalendarModal = ({ onClose, existingTitles, fetchCalendars }) => {
   }, [closing]);
 
   return (
-    <div className={`modal-backdrop ${closing ? 'closing' : ''}`}>
-      <div className="modal-content">
-        <div className="modal-header">
+    <div className={`${styles.modal_backdrop} ${closing ? styles.closing : ''}`}>
+      <div className={styles.modal_content}>
+        <div className={styles.modal_header}>
           <h2>Add New Calendar</h2>
         </div>
-        <div className="modal-body">
+        <div className={styles.modal_body}>
           <input
-            className={`input-field ${error ? 'input-error' : ''}`}
+            className={`${styles.input_field} ${error ? styles.input_error : ''}`}
             type="text"
             value={title}
             onChange={handleInputChange}
             onFocus={() => setError('')} 
             placeholder="Enter calendar title"
           />
-          {error && <p className="error-message">{error}</p>}
+          {error && <p className={styles.error_message}>{error}</p>}
         </div>
-        <div className="modal-footer">
-          <button className="button close-button" onClick={handleClose}>Close</button>
-          <button className="button add-button" type="submit" onClick={handleSubmit}>Add</button>
+        <div className={styles.modal_footer}>
+          <button className={`${styles.button} ${styles.close_button}`} onClick={handleClose}>Close</button>
+          <button className={`${styles.button} ${styles.add_button}`} type="submit" onClick={handleSubmit}>Add</button>
         </div>
       </div>
     </div>

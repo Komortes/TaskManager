@@ -1,4 +1,4 @@
-.modal-backdrop {
+.modal_backdrop {
   position: fixed;
   top: 0;
   left: 0;
@@ -14,7 +14,7 @@
   animation: fadeIn 0.5s forwards;
 }
 
-.modal-content {
+.modal_content {
   background: white;
   padding: 15px 20px;
   border-radius: 16px;
@@ -25,24 +25,24 @@
   width: 400px;
 }
 
-.modal-header {
+.modal_header {
   margin-bottom: 20px;
 }
 
-.modal-body {
+.modal_body {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.input-field {
+.input_field {
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 16px;
 }
 
-.modal-footer {
+.modal_footer {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
@@ -58,21 +58,21 @@
   transition: background-color 0.3s;
 }
 
-.add-button {
+.add_button {
   background-color: #4caf50;
   color: white;
 }
 
-.add-button:hover {
+.add_button:hover {
   background-color: #45a049;
 }
 
-.close-button {
+.close_button {
   background-color: #f44336;
   color: white;
 }
 
-.close-button:hover {
+.close_button:hover {
   background-color: #d32f2f;
 }
 
@@ -88,12 +88,12 @@
   }
 }
 
-.error-message {
+.error_message {
   color: red;
   margin-top: 10px;
   font-size: 0.8rem;
 }
 
-.input-error {
+.input_error {
   border-color: red;
 }

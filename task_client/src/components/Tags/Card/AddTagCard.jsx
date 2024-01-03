@@ -1,5 +1,5 @@
 import React from 'react';
-import './TagCard.css'; 
+import styles from './TagCard.module.css'; 
 
 const AddTagCard = ({ onAddClick  }) => {
     const cardStyle = {
@@ -8,11 +8,11 @@ const AddTagCard = ({ onAddClick  }) => {
 
 return (
     <div 
-      className="card" 
+      className={styles.card}
       onClick={onAddClick}
       style={cardStyle} 
     >
-      <p className="text-title">Create</p>
+      <p className={styles.text_title}>Create</p>
     </div>
   );
 };

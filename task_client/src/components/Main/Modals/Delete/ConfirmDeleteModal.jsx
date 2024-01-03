@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './ConfirmDeleteModal.css';
+import styles from './ConfirmDeleteModal.module.css';
 import axios from 'axios';
 
 const ConfirmDeleteModal = ({ onClose, CardtoDel , fetchCalendars}) => {
@@ -35,17 +35,17 @@ const ConfirmDeleteModal = ({ onClose, CardtoDel , fetchCalendars}) => {
     }, [closing]);
 
     return (
-        <div className={`modal-backdrop ${closing ? 'closing' : ''}`}>
-            <div className="modal-content">
-                <div className="modal-header">
+        <div className={`${styles.modal_backdrop} ${closing ? styles.closing : ''}`}>
+            <div className={styles.modal_content}>
+                <div className={styles.modal_header}>
                     <h2>Delete calendar</h2>
                 </div>
-                <div className="modal-body">
+                <div className={styles.modal_body}>
                     <p>Are you sure you want to delete this calendar? This action cannot be undone.</p>
                 </div>
-                <div className="modal-footer">
-                    <button className="button close-button" onClick={handleClose}>Cancel</button>
-                    <button className="button add-button" type="submit" onClick={handleDelete}>Delete</button>
+                <div className={styles.modal_footer}>
+                    <button className={`${styles.button} ${styles.close_button}`} onClick={handleClose}>Cancel</button>
+                    <button className={`${styles.button} ${styles.add_button}`} type="submit" onClick={handleDelete}>Delete</button>
                 </div>
             </div>
         </div>

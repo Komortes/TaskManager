@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './AddTagModal.css';
+import styles from './AddTagModal.module.css';
 import axios from 'axios';
 
 const AddTagModal = ({ onClose, existingTitles, fetchCalendars }) => {

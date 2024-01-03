@@ -1,5 +1,5 @@
 import React from 'react';
-import './TagCard.css'; 
+import styles from './TagCard.module.css'; 
 
 
 const TagCard = ({ id, title, gradient, onCardClick, onRightClick }) => {
@@ -9,7 +9,7 @@ const TagCard = ({ id, title, gradient, onCardClick, onRightClick }) => {
   
   return (
     <div 
-      className="card" 
+      className={styles.card}
       onClick={() => onCardClick(title)}  
       onContextMenu={(e) => {
         e.preventDefault(); 
@@ -17,7 +17,7 @@ const TagCard = ({ id, title, gradient, onCardClick, onRightClick }) => {
       }} 
       style={cardStyle}
     >
-      <p className="text-title">{title}</p>
+      <p className={styles.text_title}>{title}</p>
     </div>
   );
 };

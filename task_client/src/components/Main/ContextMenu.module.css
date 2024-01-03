@@ -1,0 +1,21 @@
+.context_menu {
+    position: absolute;
+    z-index: 1000;
+    background-color: rgba(50, 50, 50, 0.9);
+    border-radius: 8px;
+    color: white;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.menu_item {
+    margin: 5px 0;
+    user-select: none;
+    padding: 5px 10px;
+    transition: background-color 0.2s;
+}
+
+.menu_item:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
+}

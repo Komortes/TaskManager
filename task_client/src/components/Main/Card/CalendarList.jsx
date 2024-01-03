@@ -5,6 +5,7 @@ import AddCalendarModal from '../Modals/Add/AddCalendarModal';
 import ContextMenu from '../ContextMenu';
 import ConfirmDeleteModal from '../Modals/Delete/ConfirmDeleteModal';
 import RenameModal from '../Modals/Rename/RenameModal';
+import styles from './CalendarList.module.css'
 
 const CalendarList = ({ calendars, gradients,  fetchCalendars }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -60,7 +61,7 @@ const CalendarList = ({ calendars, gradients,  fetchCalendars }) => {
   };
 
   return (
-    <div className="calendar-list" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', gap: '20px', padding: '20px' }}>
+    <div className={styles.calendar_list} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', gap: '20px', padding: '20px' }}>
       {calendars.map((calendar, index) => (
         <CalendarCard
           key={calendar.calendarId}

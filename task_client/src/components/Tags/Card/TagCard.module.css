@@ -15,7 +15,7 @@
   margin: 0.5em; 
 }
 
-.card-info {
+.card_info {
   position: absolute;
   width: 100%;
   bottom: 0;
@@ -27,7 +27,7 @@
   
 }
 
-.card-icon {
+.card_icon {
   opacity: 0;
   transform: translateX(-20%);
   width: 2em;
@@ -46,22 +46,22 @@
   margin-left: -5px;
 }
 
-.card-text {
+.card_text {
  margin: 0;
 }
 
 .card:hover {
-  transform: scale(1.05); /* Небольшое увеличение при наведении */
+  transform: scale(1.05); 
 }
 
-.text-title {
+.text_title {
   font-weight: 600;
-  font-size: 1rem; /* Уменьшим размер шрифта */
+  font-size: 1rem; 
   overflow: hidden;     
   text-overflow: ellipsis; 
-  flex-grow: 1; /* Текст займет все доступное пространство */
-  padding: 0; /* Убрать внутренние отступы */
-  margin: 0; /* Убрать внешние отступы */
+  flex-grow: 1; 
+  padding: 0; 
+  margin: 0;
 }
 
 @keyframes name-of-animation {
