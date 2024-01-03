@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './AddCalendarModal.css';
 import axios from 'axios';
 
-const AddCalendarModal = ({ onClose, existingTitles }) => {
+const AddCalendarModal = ({ onClose, existingTitles, fetchCalendars }) => {
   const [title, setTitle] = useState('');
   const [closing, setClosing] = useState(false);
   const [error, setError] = useState('');
@@ -41,6 +41,7 @@ const AddCalendarModal = ({ onClose, existingTitles }) => {
           'Content-Type': 'application/json'
         }
       });
+      await fetchCalendars();
       onClose();
     } catch (error) {
       console.error('Error creating calendar:', error);

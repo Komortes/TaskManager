@@ -33,8 +33,8 @@ const ContextMenu = ({ x, y, onDelete, onRename, onClose }) => {
 
   return (
     <div style={menuStyle} className="context-menu">
-      <div style={itemStyle} className="menu-item" onClick={onDelete}>Удалить</div>
-      <div style={itemStyle} className="menu-item" onClick={onRename}>Переименовать</div>
+      <div style={itemStyle} className="menu-item" onClick={onDelete}>Delete</div>
+      <div style={itemStyle} className="menu-item" onClick={onRename}>Rename</div>
     </div>
   );
 };

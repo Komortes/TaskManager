@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import CalendarCard from './CalendarCard';
-import AddCalendarCard from './AddCalendarCard';
-import AddCalendarModal from './AddCalendarModal';
-import ContextMenu from './ContextMenu';
-import ConfirmDeleteModal from './ConfirmDeleteModal';
-import RenameModal from './RenameModal';
+import AddCalendarCard from '../Card/AddCalendarCard';
+import AddCalendarModal from '../Modals/Add/AddCalendarModal';
+import ContextMenu from '../ContextMenu';
+import ConfirmDeleteModal from '../Modals/Delete/ConfirmDeleteModal';
+import RenameModal from '../Modals/Rename/RenameModal';
 
-const CalendarList = ({ calendars, gradients }) => {
+const CalendarList = ({ calendars, gradients,  fetchCalendars }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [contextMenu, setContextMenu] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -76,6 +76,7 @@ const CalendarList = ({ calendars, gradients }) => {
         <AddCalendarModal
           onClose={handleCloseModal}
           existingTitles={calendars.map(calendar => calendar.name)}
+          fetchCalendars={fetchCalendars}
         />
       )}
       {contextMenu && (
@@ -91,6 +92,7 @@ const CalendarList = ({ calendars, gradients }) => {
         <ConfirmDeleteModal
           onClose={handleCloseDeleteModal}
           CardtoDel={selectedCalendarId}
+          fetchCalendars={fetchCalendars}
         />
       )}
 
@@ -100,6 +102,7 @@ const CalendarList = ({ calendars, gradients }) => {
           currentName={calendars.find(calendar => calendar.calendarId === selectedCalendarId).name}
           existingTitles={calendars.map(calendar => calendar.name)}
           CardtoDRename={selectedCalendarId}
+          fetchCalendars={fetchCalendars}
         />
       )}
     </div>

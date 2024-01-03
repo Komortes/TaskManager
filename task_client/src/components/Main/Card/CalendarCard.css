@@ -23,6 +23,8 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  padding: 0em 1em 1.5em 1em;
+  
 }
 
 .card-icon {
@@ -32,7 +34,6 @@
   height: 2em;
   transition: all .3s ease-in-out;
   position: relative;
-  left: 1em;
   top: 15px;
 }
 
@@ -45,11 +46,19 @@
   margin-left: -5px;
 }
 
+.card-text {
+ margin: 0;
+}
+
 .text-title {
   font-weight: 700;
-  font-size: 2.1rem;
+  font-size: 2rem;
   color: rgb(255, 255, 255);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  white-space: nowrap;  
+  overflow: hidden;     
+  text-overflow: ellipsis; 
+  max-width: 180px;  
 }
 
 .card:hover .card-icon {

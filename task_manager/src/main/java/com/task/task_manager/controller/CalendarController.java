@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import com.task.task_manager.model.Calendar;
 import com.task.task_manager.service.CalendarService;
 import com.task.task_manager.dto.CalendarDto;
-import com.task.task_manager.security.JwtTokenProvider;
 import com.task.task_manager.security.UserPrincipal;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import java.util.List;
 
 @RestController
@@ -20,8 +18,6 @@ public class CalendarController {
     @Autowired
     private CalendarService calendarService;
 
-    @Autowired
-    private JwtTokenProvider tokenProvider;
 
     @PostMapping
     public ResponseEntity<?> createCalendar(@RequestBody CalendarDto calendarDto, Authentication authentication) {

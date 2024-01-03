@@ -3,7 +3,7 @@ import './RenameModal.css';
 import axios from 'axios';
 
 
-const RenameModal = ({ onClose, currentName, existingTitles, CardtoDRename }) => {
+const RenameModal = ({ onClose, currentName, existingTitles, CardtoDRename, fetchCalendars }) => {
     const [title, setTitle] = useState(currentName);
     const [closing, setClosing] = useState(false);
     const [error, setError] = useState('');
@@ -43,6 +43,7 @@ const RenameModal = ({ onClose, currentName, existingTitles, CardtoDRename }) =>
                 }
             });
             console.log('Calendar renamed successfully');
+            await fetchCalendars();
             onClose();
         } catch (error) {
             console.error('Error renaming calendar:', error);

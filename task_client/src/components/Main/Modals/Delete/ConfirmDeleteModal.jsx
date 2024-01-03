@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './ConfirmDeleteModal.css';
 import axios from 'axios';
 
-const ConfirmDeleteModal = ({ onClose, CardtoDel }) => {
+const ConfirmDeleteModal = ({ onClose, CardtoDel , fetchCalendars}) => {
     const [closing, setClosing] = useState(false);
 
 
@@ -16,6 +16,7 @@ const ConfirmDeleteModal = ({ onClose, CardtoDel }) => {
                 }
             });
             console.log('Calendar deleted successfully');
+            await fetchCalendars();
             onClose();
         } catch (error) {
             console.error('Error deleting calendar:', error);

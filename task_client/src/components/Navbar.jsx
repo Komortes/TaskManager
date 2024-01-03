@@ -35,11 +35,12 @@ export default function Navbar({ setAuth }) {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" sx={{ flexGrow: 1, cursor: "pointer" }} onClick={() => handleNavigate('/')}>
           Task Manager
         </Typography>
         {!isMobile && (
           <>
+            <Button color="inherit" onClick={() => handleNavigate('/')}>Home</Button>
             <Button color="inherit" onClick={() => handleNavigate('/tags')}>Tags</Button>
             <Button color="inherit" onClick={() => handleNavigate('/categories')}>Categories</Button>
             <IconButton color="inherit" onClick={() => handleNavigate('/profile')}>
@@ -80,6 +81,8 @@ export default function Navbar({ setAuth }) {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
+          <MenuItem onClick={() => handleNavigate('/')}>Home</MenuItem>
+          <Divider />
           <MenuItem onClick={() => handleNavigate('/profile')}>Profile</MenuItem>
           <Divider />
           <MenuItem onClick={() => handleNavigate('/tags')}>Tags</MenuItem>
@@ -91,4 +94,3 @@ export default function Navbar({ setAuth }) {
     </AppBar>
   );
 }
-

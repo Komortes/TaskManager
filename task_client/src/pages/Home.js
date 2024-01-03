@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from "../components/Navbar";
-import CalendarList from '../components/CalendarList';
-import '../components/Loader.css';
+import CalendarList from '../components/Main/Card/CalendarList';
+import '../components/Loader/Loader.css';
 
 const Home = ({ setAuth }) => {
 
   const [calendars, setCalendars] = useState([]);
   const [loading, setLoading] = useState(true);
-
 
   const gradients = [
     'linear-gradient(144deg, #af40ff, #5b42f3, #00ddeb)',
@@ -28,23 +27,24 @@ const Home = ({ setAuth }) => {
     'linear-gradient(144deg, #4facfe, #00f2fe, #43e97b)'
   ];
 
-  useEffect(() => {
-    const fetchCalendars = async () => {
-      try {
-        const token = localStorage.getItem('accessToken');
-        const response = await axios.get('http://localhost:8080/api/calendars', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        setCalendars(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching calendars:', error);
-        setLoading(false);
-      }
-    };
 
+  const fetchCalendars = async () => {
+    try {
+      const token = localStorage.getItem('accessToken');
+      const response = await axios.get('http://localhost:8080/api/calendars', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setCalendars(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching calendars:', error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchCalendars();
   }, []);
 
@@ -63,7 +63,7 @@ const Home = ({ setAuth }) => {
             </div>
           </div>
         ) : (
-          <CalendarList calendars={calendars} gradients={gradients} />
+          <CalendarList calendars={calendars} gradients={gradients} fetchCalendars={fetchCalendars} />
         )}
       </div>
     </div>
