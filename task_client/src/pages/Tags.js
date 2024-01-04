@@ -6,7 +6,7 @@ import '../components/Loader/Loader.css';
 
 const Tags = ({ setAuth }) => {
 
-  const [calendars, setCalendars] = useState([]);
+  const [tags, setTags] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const gradients = [
@@ -28,7 +28,7 @@ const Tags = ({ setAuth }) => {
   ];
 
 
-  const fetchCalendars = async () => {
+  const fetchTags = async () => {
     try {
       const token = localStorage.getItem('accessToken');
       const response = await axios.get('http://localhost:8080/api/tags', {
@@ -36,7 +36,7 @@ const Tags = ({ setAuth }) => {
           'Authorization': `Bearer ${token}`
         }
       });
-      setCalendars(response.data);
+      setTags(response.data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching tags:', error);
@@ -45,7 +45,7 @@ const Tags = ({ setAuth }) => {
   };
 
   useEffect(() => {
-    fetchCalendars();
+    fetchTags();
   }, []);
 
   return (
@@ -63,7 +63,7 @@ const Tags = ({ setAuth }) => {
             </div>
           </div>
         ) : (
-          <CalendarList calendars={calendars} gradients={gradients} fetchCalendars={fetchCalendars} />
+          <CalendarList tags={tags} gradients={gradients} fetchTags={fetchTags} />
         )}
       </div>
     </div>

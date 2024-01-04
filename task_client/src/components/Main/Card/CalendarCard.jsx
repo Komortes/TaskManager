@@ -20,7 +20,7 @@ const CalendarCard = ({ id, title, gradient, onCardClick, onRightClick }) => {
       <div className={styles.card_img}></div>
       <div className={styles.card_info}>
         <div className={styles.card_text}>
-          <p className={styles.text-title}>{title}</p>
+          <p className={styles.text_title}>{title}</p>
         </div>
         <div className={styles.card_icon}>
           <svg className={styles.icon} viewBox="0 0 28 25">

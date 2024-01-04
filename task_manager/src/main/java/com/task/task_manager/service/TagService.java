@@ -10,6 +10,7 @@ import com.task.task_manager.repository.UserRepository;
 import com.task.task_manager.dto.TagDto;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 @Service
 public class TagService {
@@ -38,11 +39,18 @@ public class TagService {
 
     public List<TagDto> getAllTagsForUser(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        List<Tag> tags = tagRepository.findAllByUser(user);
-        return tags.stream()
-                .map(tag -> new TagDto(tag.getTagId(), tag.getName()))
+        List<Tag> systemTags = tagRepository.findAllByIsSystemTrue();
+        List<Tag> userTags = tagRepository.findAllByUser(user);
+        List<Tag> combinedTags = new ArrayList<>(systemTags);
+        combinedTags.addAll(userTags.stream()
+                            .filter(tag -> !tag.getIsSystem())  
+                            .collect(Collectors.toList()));
+    
+        return combinedTags.stream()
+                .map(tag -> new TagDto(tag.getTagId(), tag.getName(), tag.getIsSystem()))
                 .collect(Collectors.toList());
     }
+    
 
     public Tag updateTag(Long tagId, String newName, Long userId) {
         Tag tag = tagRepository.findById(tagId).orElse(null);

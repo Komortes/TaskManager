@@ -46,7 +46,6 @@ const CalendarList = ({ calendars, gradients,  fetchCalendars }) => {
     setShowRenameModal(false);
   };
 
-
   const handleRightClick = (event, id) => {
     event.preventDefault();
     setContextMenu({
