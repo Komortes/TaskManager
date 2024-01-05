@@ -21,9 +21,6 @@ public class CategoryService {
     private UserRepository userRepository;
 
     public Category createCategory(CategoryDto categoryDto, Long userId) {
-        if(categoryDto.getIsSystem()) {
-            throw new IllegalArgumentException("Cannot create system categories.");
-        }
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Category category = new Category(categoryDto.getName(), user, categoryDto.getColor(), categoryDto.getSymbol(), false); 
         return categoryRepository.save(category);
