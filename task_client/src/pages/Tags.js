@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from "../components/Navbar";
-import CalendarList from '../components/Tags/Card/TagList';
+import TagList from '../components/Tags/Card/TagList';
 import '../components/Loader/Loader.css';
 
 const Tags = ({ setAuth }) => {
@@ -63,7 +63,7 @@ const Tags = ({ setAuth }) => {
             </div>
           </div>
         ) : (
-          <CalendarList tags={tags} gradients={gradients} fetchTags={fetchTags} />
+          <TagList tags={tags} gradients={gradients} fetchTags={fetchTags} />
         )}
       </div>
     </div>

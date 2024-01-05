@@ -1,0 +1,37 @@
+/* CategoryCard.module.css */
+.card {
+  width: 240px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  border-radius: 25px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  margin: 0.5em;
+  transition: transform 0.3s ease-in-out;
+}
+
+.symbol_circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.text_title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}

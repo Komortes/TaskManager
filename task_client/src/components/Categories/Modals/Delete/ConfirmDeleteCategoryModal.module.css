@@ -1,0 +1,91 @@
+.modal_backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+  }
+  
+  .modal_content {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 16px;
+    z-index: 1001;
+    min-height: 200px;
+    transform: scale(0.9);
+    animation: scaleIn 0.5s forwards;
+    width: 400px; 
+  }
+  
+  .modal_header,
+  .modal_body,
+  .modal_footer {
+    margin-bottom: 20px;
+  }
+  
+  .input_field {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+
+  .button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .add_button,
+  .close_button {
+    color: white;
+  }
+  
+  .add_button {
+    background-color: #4caf50;
+  }
+  
+  .add_button:hover {
+    background-color: #45a049;
+  }
+  
+  .close_button {
+    background-color: #f44336;
+  }
+  
+  .close_button:hover {
+    background-color: #d32f2f;
+  }
+  
+  .error_message {
+    color: red;
+    margin-top: 10px;
+    font-size: 0.8rem;
+  }
+  .input_error {
+    border-color: red;
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes scaleIn {
+    to {
+      transform: scale(1);
+    }
+  }
+  

@@ -44,7 +44,7 @@ public class TagController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCalendar(@PathVariable Long id, Authentication authentication) {
+    public ResponseEntity<?> deleteTag(@PathVariable Long id, Authentication authentication) {
         if (authentication != null) {
             UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
             Long userId = userPrincipal.getId();
@@ -61,7 +61,7 @@ public class TagController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCalendar(@PathVariable Long id, @RequestBody TagDto tagDto,
+    public ResponseEntity<?> updateTag(@PathVariable Long id, @RequestBody TagDto tagDto,
             Authentication authentication) {
         if (authentication != null) {
             UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();

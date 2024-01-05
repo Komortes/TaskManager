@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Tags from "./pages/Tags.js";
+import Categories from "./pages/Categories.js";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -31,6 +32,12 @@ function App() {
         <Route path="/tags" element={
           <ProtectedRoute auth={auth}>
             <Tags setAuth={setAuth} />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/categories" element={
+          <ProtectedRoute auth={auth}>
+            <Categories setAuth={setAuth} />
           </ProtectedRoute>
         } />
       </Routes>
