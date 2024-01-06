@@ -1,0 +1,59 @@
+.wrapper {
+    font-size: 1.1rem;
+    flex: 1;
+    border-radius: 3px;
+    background-color: #ecf0f1;
+    margin: 2px;
+    position: relative;
+  }
+  
+  .noDate {
+    background-color: rgba(27, 20, 100, .2);
+  }
+  
+  .wrapper:hover > button {
+    opacity: 0.3;
+  }
+  
+  .display {
+    position: absolute;
+    top: 0.7rem;
+    left: 0.7rem;
+    font-size: 1.4rem;
+    position: relative;
+  }
+  
+  .reminders {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    padding: 2px;
+    width: 100%;
+  }
+  
+  .addButton {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.7rem;
+    background-color: #1b1464;
+    border: none;
+    border-radius: 50%;
+    padding: 3px 7px;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+  
+  .moreReminders {
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    padding: 0.5rem 0.7rem;
+    background-color: #ecf0f1;
+    margin-top: 2px;
+    cursor: pointer;
+  }
+  

@@ -14,10 +14,6 @@ const CalendarList = ({ calendars, gradients,  fetchCalendars }) => {
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [selectedCalendarId, setSelectedCalendarId] = useState(null);
 
-  const handleCardClick = (name) => {
-    console.log("Card clicked:", name);
-  };
-
   const handleAddNewClick = () => {
     setIsModalOpen(true);
   };
@@ -60,6 +56,7 @@ const CalendarList = ({ calendars, gradients,  fetchCalendars }) => {
   };
 
   return (
+    
     <div className={styles.calendar_list} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', gap: '20px', padding: '20px' }}>
       {calendars.map((calendar, index) => (
         <CalendarCard
@@ -67,8 +64,7 @@ const CalendarList = ({ calendars, gradients,  fetchCalendars }) => {
           id={calendar.calendarId}
           title={calendar.name}
           gradient={gradients[index % gradients.length]}
-          onCardClick={handleCardClick}
-          onRightClick={handleRightClick}
+          onRightClick={handleRightClick}  
         />
       ))}
       <AddCalendarCard onAddClick={handleAddNewClick} />

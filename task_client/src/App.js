@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Tags from "./pages/Tags.js";
 import Categories from "./pages/Categories.js";
+import CalendarPage from "./pages/CalendarPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -38,6 +39,11 @@ function App() {
         <Route path="/categories" element={
           <ProtectedRoute auth={auth}>
             <Categories setAuth={setAuth} />
+          </ProtectedRoute>
+        } />
+        <Route path="/calendar/:calendarId" element={
+          <ProtectedRoute auth={auth}>
+            <CalendarPage setAuth={setAuth} />
           </ProtectedRoute>
         } />
       </Routes>

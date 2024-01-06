@@ -1,0 +1,20 @@
+.list {
+    /* Apply container styles */
+    list-style: none;
+    width: auto;
+  }
+  
+  .heading {
+    /* Apply heading styles */
+  }
+  
+  .item {
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+  
+  .closeButton {
+    /* Apply closeButton styles */
+  }
+  

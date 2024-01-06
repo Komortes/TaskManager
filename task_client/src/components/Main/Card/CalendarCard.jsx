@@ -1,20 +1,26 @@
 import React from 'react';
-import styles from './CalendarCard.module.css'; 
+import { useNavigate } from 'react-router-dom';
+import styles from './CalendarCard.module.css';
 
+const CalendarCard = ({ id, title, gradient, onRightClick }) => {
+  const navigate = useNavigate(); 
 
-const CalendarCard = ({ id, title, gradient, onCardClick, onRightClick }) => {
+  const handleCardClick = () => {
+    navigate(`/calendar/${id}`);
+  };
+
   const cardStyle = {
     backgroundImage: gradient,
   };
-  
+
   return (
-    <div 
+    <div
       className={styles.card}
-      onClick={() => onCardClick(title)}  
+      onClick={handleCardClick}
       onContextMenu={(e) => {
-        e.preventDefault(); 
-        onRightClick(e, id); 
-      }} 
+        e.preventDefault();
+        onRightClick(e, id);
+      }}
       style={cardStyle}
     >
       <div className={styles.card_img}></div>
