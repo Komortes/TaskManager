@@ -5,7 +5,14 @@
     background-color: #ecf0f1;
     margin: 2px;
     position: relative;
+    height: 11.5em;
+    display: flex;
+    flex-direction: column;
   }
+
+  .tasks {
+    flex-grow: 1;
+}
   
   .noDate {
     background-color: rgba(27, 20, 100, .2);

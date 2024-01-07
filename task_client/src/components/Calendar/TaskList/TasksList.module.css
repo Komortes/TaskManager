@@ -1,20 +1,13 @@
 .list {
+  max-height: 8em;
+  overflow-y: auto;
+  width: auto;
+  list-style: none;
+  height: 100%;
+}
 
-    list-style: none;
-    width: auto;
+.item {
+  &:not(:last-child) {
+    margin-bottom: 1rem;
   }
-  
-  .heading {
-
-  }
-  
-  .item {
-    &:not(:last-child) {
-      margin-bottom: 1rem;
-    }
-  }
-  
-  .closeButton {
-
-  }
-  
+}

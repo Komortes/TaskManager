@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import com.task.task_manager.model.User; 
 
 @Entity
-@Table(name = "category")
+@Table(name = "\"category\"")
 public class Category {
 
     @Id

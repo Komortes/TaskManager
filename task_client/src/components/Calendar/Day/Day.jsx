@@ -2,12 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'moment';
 import styles from './Day.module.css';
+import TaskList from '../TaskList/TaskList';
 
 const Day = ({ date, tasks, onTaskSelect, toggleList }) => {
   const handleAddButtonClick = () => {
     console.log("Adding task for date:", date); 
     onTaskSelect(date); 
   };
+
+  const tasksForDay = tasks.filter(task => 
+    task.dueDate && Moment(task.dueDate).isSame(date, 'day')
+  );
 
   return (
     <div className={date ? styles.wrapper : `${styles.wrapper} ${styles.noDate}`}>
@@ -18,6 +23,11 @@ const Day = ({ date, tasks, onTaskSelect, toggleList }) => {
       )}
       {date ? <span className={styles.display}>{Moment(date).format("D")}</span> : <span>&nbsp;</span>}
       <div className={styles.tasks}>
+        <TaskList
+          tasks={tasksForDay}
+          toggleList={toggleList}
+          activeDate={date}
+        />
       </div>
     </div>
   );
@@ -26,7 +36,7 @@ const Day = ({ date, tasks, onTaskSelect, toggleList }) => {
 Day.propTypes = {
   date: PropTypes.string,
   tasks: PropTypes.array, 
-  toggleForm: PropTypes.func.isRequired,
+  onTaskSelect: PropTypes.func.isRequired,
   toggleList: PropTypes.func.isRequired
 };
 

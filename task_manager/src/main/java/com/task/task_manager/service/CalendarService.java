@@ -53,4 +53,11 @@ public class CalendarService {
         }
     }
 
+    public boolean doesCalendarBelongToUser(Long calendarId, Long userId) {
+        return calendarRepository.findById(calendarId)
+                .map(Calendar::getUser)
+                .map(user -> user.getId().equals(userId))
+                .orElse(false);
+    }
+
 }

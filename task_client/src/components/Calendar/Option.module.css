@@ -1,0 +1,22 @@
+.option {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .option:not(:last-child) {
+    border-bottom: 1px solid #eee;
+  }
+  
+  .option:hover {
+    background-color: #f7f7f7;
+  }
+  
+  .colorIndicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-left: auto;
+  }
+  

@@ -1,37 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import Moment from 'moment';
+import moment from 'moment';
 import styles from './Task.module.css';
 
-class Task extends Component {
-  render() {
-    const { color, time, text, padding, fontSize, toggleForm } = this.props;
+const Task = ({ title, time, categoryColor, toggleForm }) => {
+    const defaultColor = '#3498db'; 
+    const backgroundColor = categoryColor || defaultColor;
+
+    const formattedTime = moment(time, "HH:mm:ss").format("HH:mm");
 
     const customStyle = {
-      backgroundColor: color,
-      padding: padding ? `${padding}rem` : '0.5rem', 
-      fontSize: fontSize ? `${fontSize}rem` : '1.1rem', 
+        backgroundColor,
+        padding: '0.4rem', 
+        fontSize: '1rem', 
+        borderRadius: '5px', 
+        height: '50px', 
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center', 
     };
 
     return (
-      <div className={styles.wrapper} onClick={toggleForm} style={customStyle}>
-        <Moment parse="HH:mm" format="h:mma" className={styles.time}>
-          {time}
-        </Moment>
-
-        <span className={styles.text}>{text}</span>
-      </div>
+        <div className={styles.wrapper} onClick={toggleForm} style={customStyle}>
+            <span className={styles.time}>{formattedTime}</span>
+            <span className={styles.title}>{title}</span>
+        </div>
     );
-  }
-}
+};
 
 Task.propTypes = {
-  time: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  toggleForm: PropTypes.func.isRequired,
-  padding: PropTypes.number,
-  fontSize: PropTypes.number
+    title: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    categoryColor: PropTypes.string,
+    toggleForm: PropTypes.func.isRequired,
 };
 
 export default Task;

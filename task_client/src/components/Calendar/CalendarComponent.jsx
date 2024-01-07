@@ -19,7 +19,7 @@ const CalendarComponent = ({ selectedCalendarId }) => {
     const fetchTasks = async () => {
       try {
         const token = localStorage.getItem('accessToken');
-        const response = await axios.get(`http://localhost:8080/api/calendars/${selectedCalendarId}/tasks`, {
+        const response = await axios.get(`http://localhost:8080/api/tasks/${selectedCalendarId}/tasks`, {
           headers: {
             Authorization: `Bearer ${token}`
           },
@@ -64,7 +64,7 @@ const CalendarComponent = ({ selectedCalendarId }) => {
   };
 
   const handleDaySelect = (date) => {
-    setSelectedTask({ date }); 
+    setSelectedTask({ date: moment(date) }); 
     setTaskFormVisible(true);
   };
 
@@ -108,10 +108,11 @@ const CalendarComponent = ({ selectedCalendarId }) => {
 
           {taskFormVisible && (
             <TaskForm
-              task={selectedTask}
+              selectedDate={selectedTask}
               onSave={handleUpdateTask}
               onAdd={handleAddTask}
               onClose={handleTaskClose}
+              calendarId={selectedCalendarId}
             />
           )}
 
