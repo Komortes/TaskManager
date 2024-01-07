@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Header from './Header/Header';
 import Month from './Month/Month';
 import TaskForm from './TaskForm/TaskFormModal';
+import EditForm from './EditForm/TaskFormModal'
 import TaskList from './TaskList/TaskList';
 
 const CalendarComponent = ({ selectedCalendarId }) => {
@@ -13,29 +14,32 @@ const CalendarComponent = ({ selectedCalendarId }) => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [taskFormVisible, setTaskFormVisible] = useState(false);
+  const [taskEditFormVisible, setTaskEditFormVisible] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
+
+  const fetchTasks = async () => {
+    try {
+      const token = localStorage.getItem('accessToken');
+      const response = await axios.get(`http://localhost:8080/api/tasks/${selectedCalendarId}/tasks`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        params: {
+          month: currentDate.month() + 1,
+          year: currentDate.year(),
+        },
+      });
+      setTasks(response.data);
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const token = localStorage.getItem('accessToken');
-        const response = await axios.get(`http://localhost:8080/api/tasks/${selectedCalendarId}/tasks`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
-          params: {
-            month: currentDate.month() + 1,
-            year: currentDate.year(),
-          },
-        });
-        setTasks(response.data);
-      } catch (error) {
-        console.error('Error fetching tasks:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchTasks();
   }, [selectedCalendarId, currentDate]);
 
@@ -64,13 +68,25 @@ const CalendarComponent = ({ selectedCalendarId }) => {
   };
 
   const handleDaySelect = (date) => {
-    setSelectedTask({ date: moment(date) }); 
+    setSelectedTask({ date: moment(date) });
     setTaskFormVisible(true);
   };
 
   const handleTaskClose = () => {
     setTaskFormVisible(false);
   };
+
+  
+  const handleEditTaskClose = () => {
+    setTaskEditFormVisible(false);
+  };
+
+
+  const handleDayEdit = (taskId) => {
+    setSelectedId({ taskId: taskId });
+    setTaskEditFormVisible(true);
+  };
+
 
   const monthVariants = {
     initial: { opacity: 0, x: 50 },
@@ -102,6 +118,7 @@ const CalendarComponent = ({ selectedCalendarId }) => {
                 year={currentDate.year()}
                 tasks={tasks}
                 onTaskSelect={handleDaySelect}
+                EditTask = {handleDayEdit}
               />
             </motion.div>
           </AnimatePresence>
@@ -109,9 +126,17 @@ const CalendarComponent = ({ selectedCalendarId }) => {
           {taskFormVisible && (
             <TaskForm
               selectedDate={selectedTask}
-              onSave={handleUpdateTask}
-              onAdd={handleAddTask}
+              fetchTasks={fetchTasks}
               onClose={handleTaskClose}
+              calendarId={selectedCalendarId}
+            />
+          )}
+
+          {taskEditFormVisible && (
+            <EditForm
+              selectedId={selectedId}
+              fetchTasks={fetchTasks}
+              onClose={handleEditTaskClose}
               calendarId={selectedCalendarId}
             />
           )}

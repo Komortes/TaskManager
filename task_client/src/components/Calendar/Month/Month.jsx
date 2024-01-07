@@ -4,7 +4,7 @@ import moment from 'moment';
 import Week from '../Week/Week';
 import styles from './Month.module.css';
 
-const Month = ({ month, year, tasks  , onTaskSelect}) => {
+const Month = ({ month, year, tasks  , onTaskSelect, EditTask}) => {
   const generateMonthGrid = (month, year) => {
     const startOfMonth = moment([year, month]);
     const endOfMonth = moment(startOfMonth).endOf('month');
@@ -63,6 +63,7 @@ const Month = ({ month, year, tasks  , onTaskSelect}) => {
       {weeksOfMonth.map((week, index) => (
         <Week
           key={`week-${index}`}
+          EditTask = {EditTask}
           index={index}
           days={week}
           tasks={tasks}

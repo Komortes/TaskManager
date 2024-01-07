@@ -4,7 +4,7 @@ import moment from 'moment';
 import Day from '../Day/Day';
 import styles from './Week.module.css';
 
-const Week = ({ index, days, onTaskSelect, toggleList, tasks }) => {
+const Week = ({ index, days, onTaskSelect, toggleList, tasks , EditTask }) => {
   return (
     <div className={styles.wrapper}>
       {days.map((day, i) => (
@@ -14,6 +14,7 @@ const Week = ({ index, days, onTaskSelect, toggleList, tasks }) => {
           tasks={tasks} 
           onTaskSelect={onTaskSelect}
           toggleList={toggleList}
+          EditTask = {EditTask}
         />
       ))}
     </div>

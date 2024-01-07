@@ -40,18 +40,39 @@ public class TaskController {
             @RequestParam int year,
             @RequestParam int month,
             Authentication authentication) {
-        
+
         if (authentication == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
         }
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Long userId = userPrincipal.getId();
-        
+
         if (!calendarService.doesCalendarBelongToUser(calendarId, userId)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access to the requested calendar is forbidden");
         }
-        
+
+        List<TaskDto> taskDtos = taskService.getTasksByCalendarAndMonth(calendarId, year, month);
+        return ResponseEntity.ok(taskDtos);
+    }
+
+    @GetMapping("/{calendarId}/{task_id}")
+    public ResponseEntity<?> getTaskInfo(
+            @PathVariable Long calendarId, 
+            @PathVariable Long task_id,
+            Authentication authentication) {
+
+        if (authentication == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
+        }
+
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        Long userId = userPrincipal.getId();
+
+        if (!calendarService.doesCalendarBelongToUser(calendarId, userId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access to the requested calendar is forbidden");
+        }
+
         List<TaskDto> taskDtos = taskService.getTasksByCalendarAndMonth(calendarId, year, month);
         return ResponseEntity.ok(taskDtos);
     }

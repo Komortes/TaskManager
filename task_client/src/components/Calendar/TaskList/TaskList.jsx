@@ -1,23 +1,20 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
-import Moment from 'moment';
-import Modal from '../Modal/Modal';  
-import Task from '../Task/Task';    
-import styles from './TasksList.module.css';
-import moment from 'moment';
+import Task from '../Task/Task'; 
+import styles from './TasksList.module.css'; 
 
-const TasksList = ({ tasks, toggleList, activeDate }) => {
-  const formattedDate = moment(activeDate).format("MMM. D, YYYY");
+const TasksList = ({ tasks, fetchTasks, EditTask }) => {
   return (
       <ul className={styles.list} onClick={e => e.stopPropagation()}>
         {tasks.map(task => (
           <li className={styles.item} key={`task-${task.taskId}`}>
             <Task
+              taskid = {task.taskId}
               title={task.title}
-              description={task.description}
               time={task.time}
               categoryColor={task.categoryColor}
+              EditTask = {EditTask}
+              fetchTasks = {fetchTasks}
             />
           </li>
         ))}
@@ -30,7 +27,6 @@ TasksList.propTypes = {
     PropTypes.shape({
       taskId: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
-      description: PropTypes.string,
       time: PropTypes.string,
       categoryColor: PropTypes.string,
     }).isRequired

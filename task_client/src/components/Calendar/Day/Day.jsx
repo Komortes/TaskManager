@@ -4,7 +4,7 @@ import Moment from 'moment';
 import styles from './Day.module.css';
 import TaskList from '../TaskList/TaskList';
 
-const Day = ({ date, tasks, onTaskSelect, toggleList }) => {
+const Day = ({ date, tasks, onTaskSelect, EditTask , fetchTasks ,toggleList }) => {
   const handleAddButtonClick = () => {
     console.log("Adding task for date:", date); 
     onTaskSelect(date); 
@@ -27,6 +27,8 @@ const Day = ({ date, tasks, onTaskSelect, toggleList }) => {
           tasks={tasksForDay}
           toggleList={toggleList}
           activeDate={date}
+          EditTask = {EditTask}
+          fetchTasks = {fetchTasks}
         />
       </div>
     </div>

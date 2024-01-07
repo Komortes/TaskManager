@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import styles from './AddTaskModal.module.css';
+import styles from './EditTaskModal.module.css';
 import CustomSelect from '../CustomSelect';
 import axios from 'axios';
 import moment from 'moment';
 
-const TaskFormModal = ({ onClose, fetchTasks, calendarId, selectedDate }) => {
+const TaskFormModal = ({ onClose, fetchTasks, calendarId, selectedId }) => {
+  const [task, setTask] = useState(null);
   const [title, setTitle] = useState('');
-  const [closing, setClosing] = useState(false);
   const [description, setDescription] = useState('');
   const [time, setTime] = useState('');
   const [repeat, setRepeat] = useState(false);
@@ -17,86 +17,29 @@ const TaskFormModal = ({ onClose, fetchTasks, calendarId, selectedDate }) => {
   const [allTags, setAllTags] = useState([]);
   const [error, setError] = useState('');
 
-
-  const dueDateISO = selectedDate ? moment(selectedDate.date).toISOString() : moment().toISOString();
-
-  const validateTitle = (newTitle) => {
-    if (newTitle.length < 3) {
-      return "Title must be longer than 2 characters";
-    }
-    if (newTitle.length > 30) {
-      return "Title must be less than 30 characters";
-    }
-    if (/[^a-zA-Z0-9 ]/.test(newTitle)) {
-      return "Title must not contain special characters";
-    }
-    return "";
-  };
-
-  const taskData = {
-    title: title,
-    description: description,
-    time: time,
-    repeat: repeat,
-    status: status,
-    categoryId: category, 
-    tagIds: allTags.filter(tag => tag.isSelected === true).map(tag => tag.tagId),
-    calendarId: calendarId, 
-    dueDate: dueDateISO , 
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const titleError = validateTitle(title);
-    if (titleError) {
-      setError(titleError);
-      return;
-    }
-
-    if (!time) {
-      setError("Please enter a valid time.");
-      return;
-    }
-  
-    try {
+  useEffect(() => {
+    const fetchTaskDetails = async () => {
       const token = localStorage.getItem('accessToken');
-      console.log("Token being sent:", token);
-      await axios.post('http://localhost:8080/api/tasks', taskData, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      await fetchTasks();
-      onClose(false);
-    } catch (error) {
-      console.error('Error creating task:', error);
-    }
-  };
-
-  const handleInputChange = (e) => {
-    setTitle(e.target.value);
-    setError('');
-  };
-
-  const handleClose = () => {
-    setClosing(true);
-    onClose();
-  };
-
-  const handleTagSelect = (selectedTagId) => {
-    const newTags = allTags.map(tag => ({
-      ...tag,
-      isSelected: tag.tagId === selectedTagId ? !tag.isSelected : tag.isSelected
-    }));
-    console.log("New tags:", newTags);
-    setAllTags(newTags);
-  };
-
-  const handleCategoryChange = (id) => {
-    console.log("Category changed:", id);
-    setCategory(id);
-  };
+      try {
+        const response = await axios.get(`http://localhost:8080/api/tasks/${calendarId}/${selectedId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setTask(response.data);
+        setTitle(response.data.title);
+        setDescription(response.data.description);
+        setTime(response.data.time);
+        setRepeat(response.data.repeat);
+        setStatus(response.data.status);
+        setCategory(response.data.categoryId);
+        setTags(response.data.tagIds);
+      } catch (error) {
+        console.error('Error fetching task details:', error);
+      }
+    };
+    fetchTaskDetails();
+  }, [selectedId]);
 
   useEffect(() => {
     const fetchTagsAndCategories = async () => {
@@ -122,11 +65,70 @@ const TaskFormModal = ({ onClose, fetchTasks, calendarId, selectedDate }) => {
     fetchTagsAndCategories();
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const taskData = {
+      title,
+      description,
+      time,
+      repeat,
+      status,
+      categoryId: category,
+      tagIds: tags,
+      calendarId
+    };
+
+    const token = localStorage.getItem('accessToken');
+    try {
+      await axios.put(`http://localhost:8080/api/tasks/${selectedId}`, taskData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      fetchTasks();
+      onClose();
+    } catch (error) {
+      setError('Failed to update the task');
+      console.error('Error updating task:', error);
+    }
+  };
+
+  const handleDelete = async () => {
+    const token = localStorage.getItem('accessToken');
+    try {
+      await axios.delete(`http://localhost:8080/api/tasks/${selectedId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      fetchTasks();
+      onClose();
+    } catch (error) {
+      setError('Failed to delete the task');
+      console.error('Error deleting task:', error);
+    }
+  };
+
+  const handleClose = () => {
+    onClose();
+  };
+
+  const handleTagSelect = (selectedTagId) => {
+    const newTags = allTags.map(tag => ({
+      ...tag,
+      isSelected: tag.tagId === selectedTagId ? !tag.isSelected : tag.isSelected
+    }));
+    console.log("New tags:", newTags);
+    setAllTags(newTags);
+  };
+
+
   return (
-    <div className={`${styles.modal_backdrop} ${closing ? styles.closing : ''}`} onClick={handleClose}>
+    <div className={`${styles.modal_backdrop}`} onClick={handleClose}>
       <div className={styles.modal_content} onClick={e => e.stopPropagation()}>
         <div className={styles.modal_header}>
-          <h2>Add New Task</h2>
+          <h2>Edit Task</h2>
         </div>
         <div className={styles.modal_body}>
           <input
@@ -173,27 +175,25 @@ const TaskFormModal = ({ onClose, fetchTasks, calendarId, selectedDate }) => {
               label: category.name,
               color: category.color
             }))}
-            onSelect={handleCategoryChange}
+            onSelect={(id) => setCategory(id)}
           />
           <div className={styles.tagSelection}>
             {allTags.map(tag => (
               <button
                 key={tag.tagId}
-                className={`${styles.tagButton} ${tag.isSelected ? styles.selected : ''}`}
+                className={`${styles.tagButton} ${tags.includes(tag.tagId) ? styles.selected : ''}`}
                 onClick={() => handleTagSelect(tag.tagId)}
               >
                 {tag.name}
               </button>
             ))}
           </div>
-
-
           {error && <p className={styles.errorMessage}>{error}</p>}
         </div>
         <div className={styles.modal_footer}>
           <button type="button" className={`${styles.button} ${styles.closeButton}`} onClick={handleClose}>Close</button>
-          <button type="submit" className={`${styles.button} ${styles.addButton}`} onClick={handleSubmit}>Add</button>
-
+          <button type="button" className={`${styles.button} ${styles.addButton}`} onClick={handleSubmit}>Save Changes</button>
+          <button type="button" className={`${styles.button} ${styles.deleteButton}`} onClick={handleDelete}>Delete Task</button>
         </div>
       </div>
     </div>

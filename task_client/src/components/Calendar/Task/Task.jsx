@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import styles from './Task.module.css';
+import styles from './Task.module.css'; 
 
-const Task = ({ title, time, categoryColor, toggleForm }) => {
-    const defaultColor = '#3498db'; 
+const Task = ({ title, time, categoryColor, toggleForm, taskid, EditTask }) => {
+    const defaultColor = '#3498db';  
     const backgroundColor = categoryColor || defaultColor;
 
-    const formattedTime = moment(time, "HH:mm:ss").format("HH:mm");
+    const handleAddButtonClick = () => {
+      console.log("Eddit task for date:", taskid); 
+      EditTask(taskid); 
+    };
+
+    const formattedTime = time ? moment(time, "HH:mm:ss").format("HH:mm") : "Invalid time"; 
 
     const customStyle = {
         backgroundColor,
@@ -21,7 +26,7 @@ const Task = ({ title, time, categoryColor, toggleForm }) => {
     };
 
     return (
-        <div className={styles.wrapper} onClick={toggleForm} style={customStyle}>
+        <div className={styles.wrapper} onClick={handleAddButtonClick} style={customStyle}>
             <span className={styles.time}>{formattedTime}</span>
             <span className={styles.title}>{title}</span>
         </div>
