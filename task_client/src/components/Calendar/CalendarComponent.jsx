@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import Header from './Header/Header';
 import Month from './Month/Month';
@@ -17,17 +18,17 @@ const CalendarComponent = ({ selectedCalendarId }) => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const token = localStorage.getItem('accessToken'); 
+        const token = localStorage.getItem('accessToken');
         const response = await axios.get(`http://localhost:8080/api/calendars/${selectedCalendarId}/tasks`, {
           headers: {
             Authorization: `Bearer ${token}`
           },
           params: {
-            month: currentDate.month() + 1, 
+            month: currentDate.month() + 1,
             year: currentDate.year(),
           },
         });
-        setTasks(response.data); 
+        setTasks(response.data);
       } catch (error) {
         console.error('Error fetching tasks:', error);
       } finally {
@@ -62,6 +63,12 @@ const CalendarComponent = ({ selectedCalendarId }) => {
 
   };
 
+  const monthVariants = {
+    initial: { opacity: 0, x: 50 },
+    animate: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -50 }
+  };
+
   return (
     <div>
       {loading ? (
@@ -73,15 +80,26 @@ const CalendarComponent = ({ selectedCalendarId }) => {
             year={currentDate.year()}
             onMonthChange={handleMonthChange}
           />
-          <Month
-            month={currentDate.month()}
-            year={currentDate.year()}
-            tasks={tasks}
-            onTaskSelect={(task) => {
-              setSelectedTask(task);
-              setTaskFormVisible(true);
-            }}
-          />
+          <AnimatePresence mode='wait'>
+            <motion.div
+              key={`${currentDate.month()}-${currentDate.year()}`}
+              variants={monthVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <Month
+                month={currentDate.month()}
+                year={currentDate.year()}
+                tasks={tasks}
+                onTaskSelect={(task) => {
+                  setSelectedTask(task);
+                  setTaskFormVisible(true);
+                }}
+              />
+            </motion.div>
+          </AnimatePresence>
+
           {taskFormVisible && (
             <TaskForm
               task={selectedTask}

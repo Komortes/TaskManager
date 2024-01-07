@@ -1,5 +1,5 @@
 .wrapper {
-    color: #ecf0f1;
+    color: #000000;
     text-align: center;
     margin-bottom: 3rem;
     display: flex;
@@ -14,7 +14,7 @@
   }
   
   .arrow {
-    font-size: 2rem;
+    font-size: 4rem;
     cursor: pointer;
   }
   

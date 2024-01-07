@@ -2,51 +2,78 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Week from '../Week/Week';
-import styles from './Month.module.css'; 
+import styles from './Month.module.css';
 
 const Month = ({ month, year, tasks }) => {
-  const getDaysInMonth = (month, year) => {
-    let date = new Date(year, month, 1);
+  const generateMonthGrid = (month, year) => {
+    const startOfMonth = moment([year, month]);
+    const endOfMonth = moment(startOfMonth).endOf('month');
+    let date = moment(startOfMonth).startOf('isoWeek');
     let days = [];
-    while (date.getMonth() === month) {
-      days.push(new Date(date));
-      date.setDate(date.getDate() + 1);
+
+    // Предыдущий месяц
+    while (date.isBefore(startOfMonth)) {
+      days.push(null);
+      date.add(1, 'days');
     }
+
+    // Текущий месяц
+    while (date.isSameOrBefore(endOfMonth)) {
+      days.push(moment(date));
+      date.add(1, 'days');
+    }
+
+    // Следующий месяц
+    while (date.weekday() !== 0) {
+      days.push(null);
+      date.add(1, 'days');
+    }
+
     return days;
   };
 
-  const getDaysOfWeek = (days, firstWeek, i) => 
-    days.filter(
-      day => moment(day).startOf('week').isoWeek() === firstWeek + i
-    );
+  const getWeeks = (days) => {
+    let weeks = [];
+    let week = [];
 
-  const days = getDaysInMonth(month, year);
-  let firstWeek = moment(days[0]).startOf('week').isoWeek();
-  let weeksComponents = [];
+    days.forEach((day, index) => {
+      week.push(day);
+      if ((index + 1) % 7 === 0) {
+        weeks.push(week);
+        week = [];
+      }
+    });
 
-  for (let i = 0; i < 6; i++) {
-    const daysOfWeek = getDaysOfWeek(days, firstWeek, i);
-    weeksComponents.push(
-      <Week
-        key={`week-${firstWeek + i}`}
-        days={daysOfWeek}
-        tasks={tasks} 
-        month={month}
-        year={year}
-      />
-    );
-  }
+    // Дополнение последней недели до полных 7 дней
+    while (week.length > 0 && week.length < 7) {
+      week.push(null);
+    }
+    if (week.length === 7 && week.some(day => day !== null)) {
+      weeks.push(week);
+    }
 
-  const daysOfWeekLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+    return weeks;
+  };
+
+  const weeksOfMonth = getWeeks(generateMonthGrid(month, year));
 
   return (
     <div className={styles.wrapper}>
       <ul className={styles.header}>
-        {daysOfWeekLabels.map(day => (
+        {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(day => (
           <li className={styles.day} key={day}>{day}</li>
         ))}
       </ul>
-      {weeksComponents}
+      {weeksOfMonth.map((week, index) => (
+        <Week
+          key={`week-${index}`}
+          index={index}
+          days={week}
+          tasks={tasks}
+          toggleForm={() => {}}  
+          toggleList={() => {}} 
+        />
+      ))}
     </div>
   );
 };

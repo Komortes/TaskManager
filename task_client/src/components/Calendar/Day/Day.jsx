@@ -4,8 +4,8 @@ import Moment from 'moment';
 import Task from '../Task/Task';
 import styles from './Day.module.css';
 
-const Day = ({ date, reminders, toggleForm, toggleList }) => {
-  const sortedReminders = reminders && !!reminders.length ? reminders : null;
+const Day = ({ date, tasks, toggleForm, toggleList }) => {
+  const momentDate = Moment(date);
 
   return (
     <div className={date ? styles.wrapper : `${styles.wrapper} ${styles.noDate}`}>
@@ -14,25 +14,8 @@ const Day = ({ date, reminders, toggleForm, toggleList }) => {
           &#43;
         </button>
       )}
-      {date ? <Moment format="D" className={styles.display}>{date}</Moment> : <span>&nbsp;</span>}
-      <div className={styles.reminders}>
-        {sortedReminders
-          ? sortedReminders
-              .map(r => (
-                <Task
-                  key={r.id}
-                  {...r}
-                  toggleForm={() => toggleForm(date, r)}
-                />
-              ))
-              .slice(0, 2)
-          : null}
-        {sortedReminders && sortedReminders.length > 2 && (
-          <button
-            className={styles.moreReminders}
-            onClick={() => toggleList(date)}
-          >{`+${sortedReminders.length - 2} more`}</button>
-        )}
+      {date ? <span className={styles.display}>{momentDate.format("D")}</span> : <span>&nbsp;</span>}
+      <div className={styles.tasks}>
       </div>
     </div>
   );
@@ -40,14 +23,7 @@ const Day = ({ date, reminders, toggleForm, toggleList }) => {
 
 Day.propTypes = {
   date: PropTypes.string,
-  reminders: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      time: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired
-    })
-  ),
+  tasks: PropTypes.array, 
   toggleForm: PropTypes.func.isRequired,
   toggleList: PropTypes.func.isRequired
 };

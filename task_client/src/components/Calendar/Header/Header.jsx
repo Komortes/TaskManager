@@ -1,24 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { motion } from 'framer-motion'; 
 import styles from './Header.module.css';
 
 const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ];
-  
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
 
-class Header extends Component {
+class Header extends React.Component {
   handleClick = (direction) => {
     this.props.onMonthChange(direction);
   };
@@ -27,15 +27,26 @@ class Header extends Component {
     const { month, year } = this.props;
     return (
       <div className={styles.wrapper}>
-        <span className={styles.arrow} onClick={() => this.handleClick('left')}>
+        {/* Оборачиваем стрелки в motion.span */}
+        <motion.span 
+          className={styles.arrow} 
+          onClick={() => this.handleClick('prev')}
+          whileHover={{ scale: 1.1 }} // Анимация при наведении
+          whileTap={{ scale: 0.9 }}  // Анимация при нажатии
+        >
           &lt;
-        </span>
+        </motion.span>
         <h1 className={styles.heading}>
           {months[month]} {year}
         </h1>
-        <span className={styles.arrow} onClick={() => this.handleClick('right')}>
+        <motion.span 
+          className={styles.arrow} 
+          onClick={() => this.handleClick('next')}
+          whileHover={{ scale: 1.1 }} // Анимация при наведении
+          whileTap={{ scale: 0.9 }}  // Анимация при нажатии
+        >
           &gt;
-        </span>
+        </motion.span>
       </div>
     );
   }
