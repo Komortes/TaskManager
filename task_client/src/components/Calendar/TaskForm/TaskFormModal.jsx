@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './AddTaskModal.module.css';
 import axios from 'axios';
 
-const AddTaskModal = ({ onClose, fetchTasks }) => {
+const TaskFormModal = ({ onClose, fetchTasks }) => {
   const [title, setTitle] = useState('');
   const [closing, setClosing] = useState(false);
   const [error, setError] = useState('');
@@ -86,4 +86,4 @@ const AddTaskModal = ({ onClose, fetchTasks }) => {
   );
 };
 
-export default AddTaskModal;
+export default TaskFormModal;

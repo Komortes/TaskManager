@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import Header from './Header/Header';
 import Month from './Month/Month';
-import TaskForm from './TaskForm/TaskForm';
+import TaskForm from './TaskForm/TaskFormModal';
 import TaskList from './TaskList/TaskList';
 
 const CalendarComponent = ({ selectedCalendarId }) => {
@@ -63,6 +63,15 @@ const CalendarComponent = ({ selectedCalendarId }) => {
 
   };
 
+  const handleDaySelect = (date) => {
+    setSelectedTask({ date }); 
+    setTaskFormVisible(true);
+  };
+
+  const handleTaskClose = () => {
+    setTaskFormVisible(false);
+  };
+
   const monthVariants = {
     initial: { opacity: 0, x: 50 },
     animate: { opacity: 1, x: 0 },
@@ -92,10 +101,7 @@ const CalendarComponent = ({ selectedCalendarId }) => {
                 month={currentDate.month()}
                 year={currentDate.year()}
                 tasks={tasks}
-                onTaskSelect={(task) => {
-                  setSelectedTask(task);
-                  setTaskFormVisible(true);
-                }}
+                onTaskSelect={handleDaySelect}
               />
             </motion.div>
           </AnimatePresence>
@@ -105,7 +111,7 @@ const CalendarComponent = ({ selectedCalendarId }) => {
               task={selectedTask}
               onSave={handleUpdateTask}
               onAdd={handleAddTask}
-              onCancel={() => setTaskFormVisible(false)}
+              onClose={handleTaskClose}
             />
           )}
 

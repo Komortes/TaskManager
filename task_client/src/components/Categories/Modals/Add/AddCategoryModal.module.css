@@ -43,7 +43,7 @@
 }
 
 .circle_picker {
-  margin: 10px 0; /* Adjust space around color picker */
+  margin: 10px 0; 
 }
 
 .emoji_section {
@@ -52,8 +52,8 @@
 }
 
 .selected_emoji {
-  font-size: 24px; /* Adjust size as needed */
-  margin-left: 10px; /* Space between picker and selected emoji */
+  font-size: 24px; 
+  margin-left: 10px; 
 }
 
 .modal_footer {

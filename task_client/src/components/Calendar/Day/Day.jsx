@@ -1,20 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'moment';
-import Task from '../Task/Task';
 import styles from './Day.module.css';
 
-const Day = ({ date, tasks, toggleForm, toggleList }) => {
-  const momentDate = Moment(date);
+const Day = ({ date, tasks, onTaskSelect, toggleList }) => {
+  const handleAddButtonClick = () => {
+    console.log("Adding task for date:", date); 
+    onTaskSelect(date); 
+  };
 
   return (
     <div className={date ? styles.wrapper : `${styles.wrapper} ${styles.noDate}`}>
       {date && (
-        <button className={styles.addButton} onClick={() => toggleForm(date, {})}>
+        <button className={styles.addButton} onClick={handleAddButtonClick}>
           &#43;
         </button>
       )}
-      {date ? <span className={styles.display}>{momentDate.format("D")}</span> : <span>&nbsp;</span>}
+      {date ? <span className={styles.display}>{Moment(date).format("D")}</span> : <span>&nbsp;</span>}
       <div className={styles.tasks}>
       </div>
     </div>

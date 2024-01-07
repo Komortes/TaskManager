@@ -1,7 +1,8 @@
 .wrapper {
     flex: 1;
-    min-height: 14.5rem;
-    width: 100%;
+    min-height: 8rem;
+    width: 96%;
+    margin: 0 2% ;
     display: flex;
   }
   

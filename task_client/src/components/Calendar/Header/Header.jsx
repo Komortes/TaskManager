@@ -27,12 +27,11 @@ class Header extends React.Component {
     const { month, year } = this.props;
     return (
       <div className={styles.wrapper}>
-        {/* Оборачиваем стрелки в motion.span */}
         <motion.span 
           className={styles.arrow} 
           onClick={() => this.handleClick('prev')}
-          whileHover={{ scale: 1.1 }} // Анимация при наведении
-          whileTap={{ scale: 0.9 }}  // Анимация при нажатии
+          whileHover={{ scale: 1.1 }} 
+          whileTap={{ scale: 0.9 }}  
         >
           &lt;
         </motion.span>
@@ -42,8 +41,8 @@ class Header extends React.Component {
         <motion.span 
           className={styles.arrow} 
           onClick={() => this.handleClick('next')}
-          whileHover={{ scale: 1.1 }} // Анимация при наведении
-          whileTap={{ scale: 0.9 }}  // Анимация при нажатии
+          whileHover={{ scale: 1.1 }} 
+          whileTap={{ scale: 0.9 }} 
         >
           &gt;
         </motion.span>

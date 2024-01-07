@@ -4,26 +4,23 @@ import moment from 'moment';
 import Week from '../Week/Week';
 import styles from './Month.module.css';
 
-const Month = ({ month, year, tasks }) => {
+const Month = ({ month, year, tasks  , onTaskSelect}) => {
   const generateMonthGrid = (month, year) => {
     const startOfMonth = moment([year, month]);
     const endOfMonth = moment(startOfMonth).endOf('month');
     let date = moment(startOfMonth).startOf('isoWeek');
     let days = [];
 
-    // Предыдущий месяц
     while (date.isBefore(startOfMonth)) {
       days.push(null);
       date.add(1, 'days');
     }
 
-    // Текущий месяц
     while (date.isSameOrBefore(endOfMonth)) {
       days.push(moment(date));
       date.add(1, 'days');
     }
 
-    // Следующий месяц
     while (date.weekday() !== 0) {
       days.push(null);
       date.add(1, 'days');
@@ -44,7 +41,6 @@ const Month = ({ month, year, tasks }) => {
       }
     });
 
-    // Дополнение последней недели до полных 7 дней
     while (week.length > 0 && week.length < 7) {
       week.push(null);
     }
@@ -70,8 +66,8 @@ const Month = ({ month, year, tasks }) => {
           index={index}
           days={week}
           tasks={tasks}
-          toggleForm={() => {}}  
-          toggleList={() => {}} 
+          onTaskSelect={onTaskSelect}  
+          toggleList={() => {}}  
         />
       ))}
     </div>
@@ -91,5 +87,6 @@ Month.propTypes = {
     })
   ).isRequired
 };
+
 
 export default Month;
