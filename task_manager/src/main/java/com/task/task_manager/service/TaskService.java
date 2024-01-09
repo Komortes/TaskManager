@@ -18,6 +18,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class TaskService {
@@ -88,42 +90,59 @@ public class TaskService {
         }).collect(Collectors.toList());
     }
 
-    private TaskDto convertToDto(Task task) {
-        TaskDto dto = new TaskDto();
-
-        dto.setTaskId(task.getTaskId());
-        dto.setTitle(task.getName());
-        dto.setDescription(task.getDescription());
-        dto.setCreationDate(task.getCreationDate());
-        dto.setDueDate(task.getDueDate());
-        dto.setTime(task.getTime() != null ? task.getTime().toString() : null);
-        dto.setRepeat(task.getRepeat());
-        dto.setStatus(task.getStatus());
-        dto.setCategoryColor(task.getCategory() != null ? task.getCategory().getColor() : null);
-        dto.setCategoryId(task.getCategory() != null ? task.getCategory().getId() : null);
-        return dto;
-    }
-
     public boolean deleteTask(Long taskId, Long userId) {
-        Task task = taskRepository.findById(taskId).orElse(null);
-        if (task != null) {
-            taskRepository.delete(task);
-            return true;
-        } else {
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
+        if (!task.getUser().getId().equals(userId)) {
             return false;
         }
+
+        task.getTags().clear();
+        taskRepository.save(task);
+        taskRepository.delete(task);
+        return true;
     }
 
     public Task updateTask(Long taskId, TaskDto taskDto, Long userId) {
-        Task task = taskRepository.findById(taskId).orElse(null);
-        if (task != null) {
-            task.setName(taskDto.getTitle());
-            task.setDescription(taskDto.getDescription());
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new RuntimeException("Task not found"));
 
-            return taskRepository.save(task);
-        } else {
-            return null;
+        if (!task.getUser().getId().equals(userId)) {
+            throw new RuntimeException("Access denied");
         }
+
+        task.setName(taskDto.getTitle());
+        task.setDescription(taskDto.getDescription());
+        task.setStatus(taskDto.getStatus());
+        if (!taskDto.getTime().equals(task.getTime())) {
+            task.setTime(taskDto.getTime());
+        }
+
+        task.setRepeat(taskDto.getRepeat());
+
+        if (taskDto.getCategoryId() != null) {
+            Category category = categoryRepository.findById(taskDto.getCategoryId())
+                    .orElseThrow(() -> new RuntimeException("Category not found"));
+            task.setCategory(category);
+        }
+
+        Set<Tag> tags = new HashSet<>();
+        if (taskDto.getTagIds() != null && !taskDto.getTagIds().isEmpty()) {
+            for (Long tagId : taskDto.getTagIds()) {
+                Tag tag = tagRepository.findById(tagId)
+                        .orElseThrow(() -> new RuntimeException("Tag not found with id: " + tagId));
+                tags.add(tag);
+            }
+        }
+        task.setTags(tags);
+
+        return taskRepository.save(task);
+    }
+
+    public TaskDto getTasksById(Long task_id) {
+        Task task = taskRepository.findAllByTaskId(task_id);
+        TaskDto dto = new TaskDto(task);
+        return dto;
     }
 
 }

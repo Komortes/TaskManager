@@ -5,8 +5,11 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 
 import com.task.task_manager.model.Task;
+import com.task.task_manager.model.Tag;
 
 public class TaskDto {
     private Long taskId;
@@ -56,6 +59,13 @@ public class TaskDto {
         if (task.getCalendar() != null) {
             this.calendarId = task.getCalendar().getCalendarId();
         }
+
+        if (task.getTags() != null && !task.getTags().isEmpty()) {
+            this.tagIds = task.getTags().stream()
+                    .map(Tag::getTagId)
+                    .collect(Collectors.toSet());
+        }
+
     }
 
     public Long getCalendarId() {

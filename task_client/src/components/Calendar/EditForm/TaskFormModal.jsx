@@ -18,30 +18,6 @@ const TaskFormModal = ({ onClose, fetchTasks, calendarId, selectedId }) => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const fetchTaskDetails = async () => {
-      const token = localStorage.getItem('accessToken');
-      try {
-        const response = await axios.get(`http://localhost:8080/api/tasks/${calendarId}/${selectedId}`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        setTask(response.data);
-        setTitle(response.data.title);
-        setDescription(response.data.description);
-        setTime(response.data.time);
-        setRepeat(response.data.repeat);
-        setStatus(response.data.status);
-        setCategory(response.data.categoryId);
-        setTags(response.data.tagIds);
-      } catch (error) {
-        console.error('Error fetching task details:', error);
-      }
-    };
-    fetchTaskDetails();
-  }, [selectedId]);
-
-  useEffect(() => {
     const fetchTagsAndCategories = async () => {
       try {
         const token = localStorage.getItem('accessToken');
@@ -50,27 +26,60 @@ const TaskFormModal = ({ onClose, fetchTasks, calendarId, selectedId }) => {
             'Authorization': `Bearer ${token}`
           }
         });
-        setAllTags(tagsResponse.data);
         const categoriesResponse = await axios.get('http://localhost:8080/api/categories', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
         });
+        setAllTags(tagsResponse.data);
         setAllCategories(categoriesResponse.data);
+        fetchTaskDetails(tagsResponse.data); 
       } catch (error) {
         console.error('Error fetching tags or categories:', error);
       }
     };
 
     fetchTagsAndCategories();
-  }, []);
+  }, [selectedId]);
 
+  const fetchTaskDetails = async (allTags) => {
+    const token = localStorage.getItem('accessToken');
+    try {
+      const response = await axios.get(`http://localhost:8080/api/tasks/${calendarId}/${selectedId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setTask(response.data);
+      setTitle(response.data.title);
+      setDescription(response.data.description);
+      setTime(response.data.time);
+      setRepeat(response.data.repeat);
+      setStatus(response.data.status);
+      if (response.data.categoryId != null) {
+        setCategory(response.data.categoryId);
+      }
+      if (response.data.tagIds != null) {
+        setTags(response.data.tagIds);
+        const updatedTags = allTags.map(tag => ({
+          ...tag,
+          isSelected: response.data.tagIds.includes(tag.tagId)
+        }));
+        setAllTags(updatedTags);
+      }
+    } catch (error) {
+      console.error('Error fetching task details:', error);
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formattedTime = moment(time, "HH:mm:ss").format("HH:mm");
+
     const taskData = {
       title,
       description,
-      time,
+      time: formattedTime, 
       repeat,
       status,
       categoryId: category,
@@ -119,9 +128,12 @@ const TaskFormModal = ({ onClose, fetchTasks, calendarId, selectedId }) => {
       ...tag,
       isSelected: tag.tagId === selectedTagId ? !tag.isSelected : tag.isSelected
     }));
-    console.log("New tags:", newTags);
     setAllTags(newTags);
+
+    const selectedTags = newTags.filter(tag => tag.isSelected).map(tag => tag.tagId);
+    setTags(selectedTags);
   };
+
 
 
   return (

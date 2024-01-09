@@ -58,7 +58,7 @@ public class TaskController {
 
     @GetMapping("/{calendarId}/{task_id}")
     public ResponseEntity<?> getTaskInfo(
-            @PathVariable Long calendarId, 
+            @PathVariable Long calendarId,
             @PathVariable Long task_id,
             Authentication authentication) {
 
@@ -73,8 +73,45 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access to the requested calendar is forbidden");
         }
 
-        List<TaskDto> taskDtos = taskService.getTasksByCalendarAndMonth(calendarId, year, month);
+        TaskDto taskDtos = taskService.getTasksById(task_id);
         return ResponseEntity.ok(taskDtos);
+    }
+
+    @DeleteMapping("/{taskId}")
+    public ResponseEntity<?> deleteTask(@PathVariable Long taskId, Authentication authentication) {
+        if (authentication == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
+        }
+
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        Long userId = userPrincipal.getId();
+
+        if (taskService.deleteTask(taskId, userId)) {
+            return ResponseEntity.ok("Task successfully deleted");
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied or task not found");
+        }
+    }
+
+    @PutMapping("/{taskId}")
+    public ResponseEntity<?> updateTask(
+            @PathVariable Long taskId,
+            @RequestBody TaskDto taskDto,
+            Authentication authentication) {
+
+        if (authentication == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User is not authenticated");
+        }
+
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        Long userId = userPrincipal.getId();
+
+        try {
+            Task task = taskService.updateTask(taskId, taskDto, userId);
+            return ResponseEntity.ok(task);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        }
     }
 
 }

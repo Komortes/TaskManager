@@ -83,7 +83,8 @@ const CalendarComponent = ({ selectedCalendarId }) => {
 
 
   const handleDayEdit = (taskId) => {
-    setSelectedId({ taskId: taskId });
+    console.log ("EDIT" +  taskId)
+    setSelectedId(taskId);
     setTaskEditFormVisible(true);
   };
 

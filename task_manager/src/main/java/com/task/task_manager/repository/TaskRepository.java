@@ -21,4 +21,5 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
                         @Param("year") int year,
                         @Param("month") int month);
 
+        Task  findAllByTaskId(Long taskId);
 }
