@@ -27,8 +27,7 @@ Week.propTypes = {
     PropTypes.instanceOf(moment), 
     PropTypes.oneOf([null])      
   ])).isRequired,
-  toggleForm: PropTypes.func.isRequired,
-  toggleList: PropTypes.func.isRequired
+  toggleList: PropTypes.func
 };
 
 export default Week;

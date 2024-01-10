@@ -68,7 +68,6 @@ const Month = ({ month, year, tasks  , onTaskSelect, EditTask}) => {
           days={week}
           tasks={tasks}
           onTaskSelect={onTaskSelect}  
-          toggleList={() => {}}  
         />
       ))}
     </div>
@@ -76,12 +75,12 @@ const Month = ({ month, year, tasks  , onTaskSelect, EditTask}) => {
 };
 
 Month.propTypes = {
-  month: PropTypes.number.isRequired,
-  year: PropTypes.number.isRequired,
+  month: PropTypes.number,
+  year: PropTypes.number,
   tasks: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      date: PropTypes.string.isRequired,
+      id: PropTypes.number,
+      date: PropTypes.string,
       time: PropTypes.string,
       text: PropTypes.string,
       color: PropTypes.string

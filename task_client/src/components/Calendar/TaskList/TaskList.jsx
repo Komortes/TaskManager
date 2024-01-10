@@ -25,14 +25,14 @@ const TasksList = ({ tasks, fetchTasks, EditTask }) => {
 TasksList.propTypes = {
   tasks: PropTypes.arrayOf(
     PropTypes.shape({
-      taskId: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
+      taskId: PropTypes.number,
+      title: PropTypes.string,
       time: PropTypes.string,
       categoryColor: PropTypes.string,
     }).isRequired
   ).isRequired,
-  toggleList: PropTypes.func.isRequired,
-  activeDate: PropTypes.string.isRequired,
+  toggleList: PropTypes.func,
+  activeDate: PropTypes.string,
 };
 
 export default TasksList;

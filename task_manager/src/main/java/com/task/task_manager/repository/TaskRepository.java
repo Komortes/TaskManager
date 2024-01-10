@@ -14,12 +14,18 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
         List<Task> findAllByCalendarCalendarId(Long calendarId);
 
-        @Query("SELECT t FROM Task t WHERE t.calendar.id = :calendarId " +
+        @Query("SELECT t FROM Task t LEFT JOIN t.tags tag " +
+                        "WHERE t.calendar.id = :calendarId " +
                         "AND EXTRACT(YEAR FROM t.dueDate) = :year " +
-                        "AND EXTRACT(MONTH FROM t.dueDate) = :month")
-        List<Task> findTasksByCalendarAndYearAndMonth(@Param("calendarId") Long calendarId,
+                        "AND EXTRACT(MONTH FROM t.dueDate) = :month " +
+                        "AND (:categoryId IS NULL OR t.category.id = :categoryId) " +
+                        "AND (:tagId IS NULL OR tag.id = :tagId)")
+        List<Task> findTasksByFilters(@Param("calendarId") Long calendarId,
                         @Param("year") int year,
-                        @Param("month") int month);
+                        @Param("month") int month,
+                        @Param("categoryId") Long categoryId,
+                        @Param("tagId") Long tagId);
 
-        Task  findAllByTaskId(Long taskId);
+        Task findAllByTaskId(Long taskId);
+
 }

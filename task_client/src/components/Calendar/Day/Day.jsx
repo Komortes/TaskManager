@@ -38,8 +38,8 @@ const Day = ({ date, tasks, onTaskSelect, EditTask , fetchTasks ,toggleList }) =
 Day.propTypes = {
   date: PropTypes.string,
   tasks: PropTypes.array, 
-  onTaskSelect: PropTypes.func.isRequired,
-  toggleList: PropTypes.func.isRequired
+  onTaskSelect: PropTypes.func,
+  toggleList: PropTypes.func
 };
 
 export default Day;

@@ -43,7 +43,7 @@ export default function Navbar({ setAuth }) {
             <Button color="inherit" onClick={() => handleNavigate('/')}>Home</Button>
             <Button color="inherit" onClick={() => handleNavigate('/tags')}>Tags</Button>
             <Button color="inherit" onClick={() => handleNavigate('/categories')}>Categories</Button>
-            <IconButton color="inherit" onClick={() => handleNavigate('/profile')}>
+            <IconButton disabled color="inherit" onClick={() => handleNavigate('/profile')}>
               <Box sx={{ display: 'flex', alignItems: 'center', borderRadius: '50px', backgroundColor: 'white', color: 'black', padding: '5px 10px' }}>
                 <AccountCircleIcon />
                 <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>

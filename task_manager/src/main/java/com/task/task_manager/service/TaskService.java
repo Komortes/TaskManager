@@ -78,17 +78,12 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public List<TaskDto> getTasksByCalendarAndMonth(Long calendarId, int year, int month) {
-        List<Task> tasks = taskRepository.findTasksByCalendarAndYearAndMonth(calendarId, year, month);
 
-        return tasks.stream().map(task -> {
-            TaskDto dto = new TaskDto(task);
-            if (task.getCategory() != null) {
-                dto.setCategoryColor(task.getCategory().getColor());
-            }
-            return dto;
-        }).collect(Collectors.toList());
+    public List<TaskDto> getTasksByCalendarAndMonth(Long calendarId, int year, int month, Long categoryId, Long tagId) {
+        List<Task> tasks = taskRepository.findTasksByFilters(calendarId, year, month, categoryId, tagId);
+        return tasks.stream().map(TaskDto::new).collect(Collectors.toList());
     }
+    
 
     public boolean deleteTask(Long taskId, Long userId) {
         Task task = taskRepository.findById(taskId)

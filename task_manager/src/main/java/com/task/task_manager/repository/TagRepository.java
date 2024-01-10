@@ -5,10 +5,7 @@ import com.task.task_manager.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import java.util.List;
-
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public interface TagRepository extends JpaRepository<Tag, Long> {

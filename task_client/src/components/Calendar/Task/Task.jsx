@@ -34,10 +34,10 @@ const Task = ({ title, time, categoryColor, toggleForm, taskid, EditTask }) => {
 };
 
 Task.propTypes = {
-    title: PropTypes.string.isRequired,
-    time: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    time: PropTypes.string,
     categoryColor: PropTypes.string,
-    toggleForm: PropTypes.func.isRequired,
+    toggleForm: PropTypes.func,
 };
 
 export default Task;

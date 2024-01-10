@@ -39,6 +39,8 @@ public class TaskController {
             @PathVariable Long calendarId,
             @RequestParam int year,
             @RequestParam int month,
+            @RequestParam(required = false) Long category,
+            @RequestParam(required = false) Long tag,
             Authentication authentication) {
 
         if (authentication == null) {
@@ -52,7 +54,7 @@ public class TaskController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access to the requested calendar is forbidden");
         }
 
-        List<TaskDto> taskDtos = taskService.getTasksByCalendarAndMonth(calendarId, year, month);
+        List<TaskDto> taskDtos = taskService.getTasksByCalendarAndMonth(calendarId, year, month, category, tag);
         return ResponseEntity.ok(taskDtos);
     }
 
