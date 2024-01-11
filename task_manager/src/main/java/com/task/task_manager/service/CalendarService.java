@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import com.task.task_manager.model.Calendar;
 import com.task.task_manager.model.User;
 import com.task.task_manager.repository.CalendarRepository;
+import com.task.task_manager.repository.TaskRepository;
 import com.task.task_manager.repository.UserRepository;
 import com.task.task_manager.dto.CalendarDto;
+import com.task.task_manager.model.Task;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +21,9 @@ public class CalendarService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private TaskRepository taskRepository;
+
     public Calendar createCalendar(String name, Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
         Calendar calendar = new Calendar(name, user);
@@ -26,14 +31,24 @@ public class CalendarService {
     }
 
     public boolean deleteCalendar(Long calendarId, Long userId) {
-        Calendar calendar = calendarRepository.findById(calendarId).orElse(null);
-        if (calendar != null && calendar.getUser().getId().equals(userId)) {
-            calendarRepository.delete(calendar);
-            return true;
-        } else {
+        Calendar calendar = calendarRepository.findById(calendarId)
+                .orElseThrow(() -> new RuntimeException("Calendar not found"));
+    
+        if (!calendar.getUser().getId().equals(userId)) {
             return false;
         }
+    
+        List<Task> tasks = taskRepository.findAllByCalendarCalendarId(calendarId);
+        for (Task task : tasks) {
+            task.getTags().clear();
+            taskRepository.save(task); 
+            taskRepository.delete(task); 
+        }
+    
+        calendarRepository.delete(calendar); 
+        return true;
     }
+    
 
     public List<CalendarDto> getAllCalendarsForUser(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));

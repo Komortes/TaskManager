@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.task.task_manager.model.Calendar;
+import com.task.task_manager.repository.TaskRepository;
 import com.task.task_manager.service.CalendarService;
 import com.task.task_manager.dto.CalendarDto;
 import com.task.task_manager.security.UserPrincipal;
@@ -17,6 +18,9 @@ public class CalendarController {
 
     @Autowired
     private CalendarService calendarService;
+
+        @Autowired
+    private TaskRepository taskRepository;
 
 
     @PostMapping

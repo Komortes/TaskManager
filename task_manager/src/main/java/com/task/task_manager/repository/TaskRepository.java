@@ -2,6 +2,8 @@ package com.task.task_manager.repository;
 
 import com.task.task_manager.model.Task;
 import com.task.task_manager.model.User;
+import com.task.task_manager.model.Category;
+import com.task.task_manager.model.Tag;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,5 +29,9 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
                         @Param("tagId") Long tagId);
 
         Task findAllByTaskId(Long taskId);
+
+        List<Task> findAllByCategory(Category category);
+
+        List<Task> findAllByTags(Tag tag);
 
 }
