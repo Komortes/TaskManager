@@ -33,7 +33,7 @@ const TaskFormModal = ({ onClose, fetchTasks, calendarId, selectedId }) => {
         });
         setAllTags(tagsResponse.data);
         setAllCategories(categoriesResponse.data);
-        fetchTaskDetails(tagsResponse.data); 
+        fetchTaskDetails(tagsResponse.data);
       } catch (error) {
         console.error('Error fetching tags or categories:', error);
       }
@@ -79,7 +79,7 @@ const TaskFormModal = ({ onClose, fetchTasks, calendarId, selectedId }) => {
     const taskData = {
       title,
       description,
-      time: formattedTime, 
+      time: formattedTime,
       repeat,
       status,
       categoryId: category,
@@ -187,6 +187,7 @@ const TaskFormModal = ({ onClose, fetchTasks, calendarId, selectedId }) => {
               label: category.name,
               color: category.color
             }))}
+            selectedValue={category}
             onSelect={(id) => setCategory(id)}
           />
           <div className={styles.tagSelection}>

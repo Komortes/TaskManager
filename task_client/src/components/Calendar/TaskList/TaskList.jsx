@@ -9,18 +9,20 @@ const TasksList = ({ tasks, fetchTasks, EditTask }) => {
         {tasks.map(task => (
           <li className={styles.item} key={`task-${task.taskId}`}>
             <Task
-              taskid = {task.taskId}
+              taskid={task.taskId}
               title={task.title}
               time={task.time}
               categoryColor={task.categoryColor}
-              EditTask = {EditTask}
-              fetchTasks = {fetchTasks}
+              categorySymbol={task.categorySymbol} 
+              EditTask={EditTask}
+              fetchTasks={fetchTasks}
             />
           </li>
         ))}
       </ul>
   );
 };
+
 
 TasksList.propTypes = {
   tasks: PropTypes.arrayOf(
@@ -29,6 +31,7 @@ TasksList.propTypes = {
       title: PropTypes.string,
       time: PropTypes.string,
       categoryColor: PropTypes.string,
+      categorySymbol: PropTypes.string,
     }).isRequired
   ).isRequired,
   toggleList: PropTypes.func,

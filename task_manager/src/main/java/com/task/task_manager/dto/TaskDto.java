@@ -24,6 +24,7 @@ public class TaskDto {
     private Set<Long> tagIds;
     private String categoryColor;
     private Long calendarId;
+    private String categorySymbol;
 
     public TaskDto() {
     }
@@ -54,6 +55,7 @@ public class TaskDto {
         if (task.getCategory() != null) {
             this.categoryId = task.getCategory().getId();
             this.categoryColor = task.getCategory().getColor();
+            this.categorySymbol = task.getCategory().getSymbol(); 
         }
 
         if (task.getCalendar() != null) {
@@ -166,5 +168,13 @@ public class TaskDto {
 
     public void setCategoryColor(String categoryColor) {
         this.categoryColor = categoryColor;
+    }
+
+    public String getCategorySymbol() {
+        return categorySymbol;
+    }
+
+    public void setCategorySymbol(String categorySymbol) {
+        this.categorySymbol = categorySymbol;
     }
 }
