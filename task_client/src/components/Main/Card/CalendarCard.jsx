@@ -14,6 +14,7 @@ const CalendarCard = ({ id, title, gradient, onRightClick }) => {
   };
 
   return (
+    
     <div
       className={styles.card}
       onClick={handleCardClick}

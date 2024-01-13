@@ -40,6 +40,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/login", "/api/auth/signup").permitAll()
                         .anyRequest().authenticated());
+                        
 
         return http.build();
     }

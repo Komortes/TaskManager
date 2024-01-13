@@ -14,6 +14,7 @@
   }
   
   .arrow {
+    margin: 0 6rem;
     font-size: 4rem;
     cursor: pointer;
   }

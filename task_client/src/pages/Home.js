@@ -3,6 +3,7 @@ import axios from 'axios';
 import Navbar from "../components/Navbar";
 import CalendarList from '../components/Main/Card/CalendarList';
 import '../components/Loader/Loader.css';
+import { motion } from 'framer-motion';
 
 const Home = ({ setAuth }) => {
 
@@ -46,12 +47,21 @@ const Home = ({ setAuth }) => {
 
   useEffect(() => {
     fetchCalendars();
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, []);
 
   return (
-    <div className="home-page">
+    <div className="home-page" style={{ minHeight: '100vh' }}>
       <Navbar setAuth={setAuth} />
-      <div className="content">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="content"
+      >
         {loading ? (
           <div className="loading-container">
             <div className="loading">
@@ -65,7 +75,7 @@ const Home = ({ setAuth }) => {
         ) : (
           <CalendarList calendars={calendars} gradients={gradients} fetchCalendars={fetchCalendars} />
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

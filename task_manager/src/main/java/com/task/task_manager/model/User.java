@@ -13,10 +13,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(nullable = false, unique = false)
     private String username;
-    
+
     @Column(nullable = false, unique = true)
     @Email
     private String email;
@@ -68,17 +68,20 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof User))
+            return false;
         User user = (User) o;
-        return Objects.equals(id, user.id);
+        return Objects.equals(username, user.username) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-
 
     @Override
     public String toString() {

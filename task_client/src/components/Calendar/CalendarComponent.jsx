@@ -86,7 +86,6 @@ const CalendarComponent = ({ selectedCalendarId }) => {
   };
   const applyFilters = (newFilters) => {
     setFilters(newFilters);
-    fetchTasks(newFilters.category, newFilters.tag);
   };
 
   return (

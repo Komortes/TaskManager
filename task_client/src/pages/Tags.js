@@ -3,6 +3,7 @@ import axios from 'axios';
 import Navbar from "../components/Navbar";
 import TagList from '../components/Tags/Card/TagList';
 import '../components/Loader/Loader.css';
+import { motion } from 'framer-motion';
 
 const Tags = ({ setAuth }) => {
 
@@ -46,12 +47,22 @@ const Tags = ({ setAuth }) => {
 
   useEffect(() => {
     fetchTags();
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+   
   }, []);
 
   return (
-    <div className="home-page">
+    <div className="home-page" style={{ minHeight: '100vh' }}>
       <Navbar setAuth={setAuth} />
-      <div className="content">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="content"
+      >
         {loading ? (
           <div className="loading-container">
             <div className="loading">
@@ -65,7 +76,7 @@ const Tags = ({ setAuth }) => {
         ) : (
           <TagList tags={tags} gradients={gradients} fetchTags={fetchTags} />
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };
