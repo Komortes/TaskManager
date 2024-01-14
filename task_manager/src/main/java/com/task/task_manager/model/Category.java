@@ -1,7 +1,6 @@
 package com.task.task_manager.model;
 
 import jakarta.persistence.*;
-import com.task.task_manager.model.User; 
 
 @Entity
 @Table(name = "\"category\"")

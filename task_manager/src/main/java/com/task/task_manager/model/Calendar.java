@@ -2,6 +2,7 @@ package com.task.task_manager.model;
 
 import jakarta.persistence.*;
 
+
 @Entity
 @Table(name = "\"calendar\"")
 public class Calendar {

@@ -22,7 +22,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springdoc:springdoc-openapi-ui:1.6.6'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
     implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
     implementation 'org.json:json:20210307'
@@ -46,6 +46,10 @@ flyway {
     locations = ['filesystem:src/main/resources/db/migration']
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
+    testLogging {
+        events 'PASSED', 'FAILED', 'SKIPPED'
+        showStandardStreams = true 
+    }
 }
