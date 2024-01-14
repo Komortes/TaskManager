@@ -11,7 +11,7 @@ Při vytváření nebo opravě úkolu může uživatel k uspořádání úkolů 
 ### Postup  
 1. Uživateli se zobrazí seznam všech aktuálních kategorií.
 2. Při vytváření nové kategorie se zadává její název, symbol a barva.
-3. Uživatel musí zkontrolovat, zda název nové kategorie není stejný jako název již existujících systémových kategorií.
+3. Klient musí zkontrolovat, zda název nové kategorie není stejný jako název již existujících systémových kategorií.
 4. Je-li nová kategorie unikátní a nekoliduje se systémovými kategoriemi, pošle na API požadavek na vytvoření této kategorie.
 
 ## Koncepční Model
@@ -27,13 +27,13 @@ Při vytváření nebo opravě úkolu může uživatel k uspořádání úkolů 
 Uživatel může specifikovat následující parametry ve svém dotazu:
 
 - `tags` - seznam ID tagů, které mají být aplikovány na úkoly.
-- `categories` - seznam ID kategorií, do kterých úkoly spadají.
-- `dateFrom` - počáteční datum a čas, od kdy mají být úkoly zahrnuty.
-- `dateTo` - koncové datum a čas, do kdy mají být úkoly zahrnuty.
+- `categorie` - seznam ID kategorií, do kterých úkoly spadají.
+- `month` - měsíc aktuálně vybraný uživatelem.
+- `year` - kalendářní rok.
 
-`GET /api/tasks?tags=1,2,3&categories=5,6&dateFrom=2023-01-01T00:00:00Z&dateTo=2023-01-31T23:59:59`
+`GET /api/tasks?tags=5&categories=1&month=12&year=2023`
 
-Tento dotaz by vrátil všechny úkoly, které odpovídají alespoň jednomu z uvedených tagů a zároveň jsou kategorizovány alespoň jednou z uvedených kategorií v zadaném časovém rozmezí.
+Tento dotaz vrátí všechny úlohy, které odpovídají zadanému tagu a zároveň patří do vybraných kategorií v zadaném časovém rozmezí.
 
 ### Zpracování na Serveru
 
