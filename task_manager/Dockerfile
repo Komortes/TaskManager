@@ -1,7 +1,9 @@
 FROM gradle:7.4-jdk17 as build
 WORKDIR /home/gradle/project
 COPY --chown=gradle:gradle . /home/gradle/project
-RUN gradle test --no-daemon && gradle bootJar --no-daemon
+ENV SPRING_PROFILES_ACTIVE=test
+RUN  gradle bootJar --no-daemon --stacktrace
+
 
 FROM openjdk:17-jdk-slim
 WORKDIR /app

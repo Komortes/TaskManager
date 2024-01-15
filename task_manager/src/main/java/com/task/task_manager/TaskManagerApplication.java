@@ -10,3 +10,10 @@ public class TaskManagerApplication {
         SpringApplication.run(TaskManagerApplication.class, args);
     }
 }
+
+
+//Test run
+// ./gradlew test -Dspring.profiles.active=test  -PflywayProfile=test
+
+//Fix migrations 
+// ./gradlew flywayRepair -Dspring.profiles.active=test  -PflywayProfile=test

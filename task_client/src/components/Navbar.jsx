@@ -46,9 +46,6 @@ export default function Navbar({ setAuth }) {
             <IconButton disabled color="inherit" onClick={() => handleNavigate('/profile')}>
               <Box sx={{ display: 'flex', alignItems: 'center', borderRadius: '50px', backgroundColor: 'white', color: 'black', padding: '5px 10px' }}>
                 <AccountCircleIcon />
-                <Typography variant="subtitle1" sx={{ marginLeft: 1 }}>
-                  User Name
-                </Typography>
               </Box>
             </IconButton>
             <IconButton color="inherit" onClick={handleLogout}>
