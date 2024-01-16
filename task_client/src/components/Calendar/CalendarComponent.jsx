@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import Filters from './Filters/Filters'; 
 import Header from './Header/Header';
 import Month from './Month/Month';
@@ -18,6 +19,8 @@ const CalendarComponent = ({ selectedCalendarId }) => {
   const [selectedTask, setSelectedTask] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [filters, setFilters] = useState({ category: '', tag: '' });
+
+  const navigate  = useNavigate();
 
   const fetchTasks = async (category, tag) => {
     try {
@@ -36,6 +39,10 @@ const CalendarComponent = ({ selectedCalendarId }) => {
       setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks:', error);
+      if (error.response && (error.response.status === 403 || error.response.status === 401  )) {
+        navigate('/main'); 
+      }
+      
     } finally {
       setLoading(false);
     }
