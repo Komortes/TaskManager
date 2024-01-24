@@ -8,7 +8,7 @@ services:
     environment:
       POSTGRES_DB: taskmanager
       POSTGRES_USER: skoroule
-      POSTGRES_PASSWORD: k6567syY
+      POSTGRES_PASSWORD: k4268
     ports:
       - "5432:5432"
 
@@ -19,7 +19,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/taskmanager
       SPRING_DATASOURCE_USERNAME: skoroule
-      SPRING_DATASOURCE_PASSWORD: k6567syY
+      SPRING_DATASOURCE_PASSWORD: k4268
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: 'true'
       SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: 'true'
@@ -41,7 +41,7 @@ services:
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: skoroule@example.com 
-      PGADMIN_DEFAULT_PASSWORD: k6567syY
+      PGADMIN_DEFAULT_PASSWORD: k4268
     ports:
       - "8081:80" 
 
